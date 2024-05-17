@@ -12,6 +12,12 @@ namespace GrupoD.Prototipos.TP3
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
+            //Application.Run(new Orden_de_Preparacion());
+
+
+           
+
         }
+
     }
 }
