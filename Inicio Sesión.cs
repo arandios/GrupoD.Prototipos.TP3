@@ -63,7 +63,7 @@ namespace GrupoD.Prototipos.TP3
             // Verificar si se trata de un cliente
             if (tipoUsuario == "CLIENTE")
             {
-                Cliente cliente = clientes.Find(c => c.NumeroCliente.ToString() == usuario && c.Contraseña == contraseña);
+                Cliente cliente = clientes.Find(c => c.DNI.ToString() == usuario && c.Contraseña == contraseña);
                 if (cliente != null)
                 {
                     MessageBox.Show("Inicio de sesión exitoso como cliente: " + cliente.Nombre + " " + cliente.Apellido);
