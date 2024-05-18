@@ -29,11 +29,11 @@ namespace GrupoD.Prototipos.TP3
         /// </summary>
         private void InitializeComponent()
         {
-            ListViewItem listViewItem1 = new ListViewItem(new string[] { "MERCADERIA1", "25", "1001" }, -1);
-            ListViewItem listViewItem2 = new ListViewItem(new string[] { "MERCADERIA2", "33", "1002" }, -1);
-            ListViewItem listViewItem3 = new ListViewItem(new string[] { "MERCADERIA4", "23", "1005" }, -1);
-            ListViewItem listViewItem4 = new ListViewItem(new string[] { "MERCADERIA5", "77", "1003" }, -1);
-            ListViewItem listViewItem5 = new ListViewItem(new string[] { "MERCADERIA6", "50", "1002" }, -1);
+            var listViewItem1 = new ListViewItem(new string[] { "MERCADERIA1", "25", "1001" }, -1);
+            var listViewItem2 = new ListViewItem(new string[] { "MERCADERIA2", "33", "1002" }, -1);
+            var listViewItem3 = new ListViewItem(new string[] { "MERCADERIA4", "23", "1005" }, -1);
+            var listViewItem4 = new ListViewItem(new string[] { "MERCADERIA5", "77", "1003" }, -1);
+            var listViewItem5 = new ListViewItem(new string[] { "MERCADERIA6", "50", "1002" }, -1);
             btnAgregar = new Button();
             btnGenerar = new Button();
             label1 = new Label();
@@ -174,7 +174,7 @@ namespace GrupoD.Prototipos.TP3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(446, 409);
+            ClientSize = new Size(446, 405);
             Controls.Add(btnBorrar);
             Controls.Add(lblNroCliente);
             Controls.Add(lblusuario);

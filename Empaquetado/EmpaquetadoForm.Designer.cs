@@ -1,6 +1,6 @@
-﻿namespace GrupoD.Prototipos.TP3
+﻿namespace GrupoD.Prototipos.TP3.Empaquetado
 {
-    partial class Empaquetado
+    partial class EmpaquetadoForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             listView1 = new ListView();
-            button1 = new Button();
-            label1 = new Label();
             columnNroOrdenEmpaquetar = new ColumnHeader();
             columnDatalleEmpaquetar = new ColumnHeader();
             columnClienteEmpaquetar = new ColumnHeader();
+            button1 = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // listView1
@@ -45,6 +45,22 @@
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
+            // 
+            // columnNroOrdenEmpaquetar
+            // 
+            columnNroOrdenEmpaquetar.Text = "NRO. ORDEN";
+            columnNroOrdenEmpaquetar.Width = 100;
+            // 
+            // columnDatalleEmpaquetar
+            // 
+            columnDatalleEmpaquetar.Text = "DETALLE";
+            columnDatalleEmpaquetar.TextAlign = HorizontalAlignment.Center;
+            columnDatalleEmpaquetar.Width = 350;
+            // 
+            // columnClienteEmpaquetar
+            // 
+            columnClienteEmpaquetar.Text = "CLIENTE";
+            columnClienteEmpaquetar.Width = 80;
             // 
             // button1
             // 
@@ -64,22 +80,6 @@
             label1.TabIndex = 2;
             label1.Text = "ORDENES A EMPAQUETAR";
             // 
-            // columnNroOrdenEmpaquetar
-            // 
-            columnNroOrdenEmpaquetar.Text = "NRO. ORDEN";
-            columnNroOrdenEmpaquetar.Width = 100;
-            // 
-            // columnDatalleEmpaquetar
-            // 
-            columnDatalleEmpaquetar.Text = "DETALLE";
-            columnDatalleEmpaquetar.TextAlign = HorizontalAlignment.Center;
-            columnDatalleEmpaquetar.Width = 350;
-            // 
-            // columnClienteEmpaquetar
-            // 
-            columnClienteEmpaquetar.Text = "CLIENTE";
-            columnClienteEmpaquetar.Width = 80;
-            // 
             // Empaquetado
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -90,6 +90,7 @@
             Controls.Add(listView1);
             Name = "Empaquetado";
             Text = "Empaquetado";
+            Load += Empaquetado_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -1,6 +1,6 @@
-﻿namespace GrupoD.Prototipos.TP3
+﻿namespace GrupoD.Prototipos.TP3.InicioSesion
 {
-    partial class Form1
+    partial class InicioSesionForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -98,7 +98,7 @@
             label3.TabIndex = 6;
             label3.Text = "TIPO USUARIO";
             // 
-            // Form1
+            // InicioSesion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -110,8 +110,9 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnInicioSesion);
-            Name = "Form1";
+            Name = "InicioSesion";
             Text = "INICIO SESIÓN";
+            Load += InicioSesion_Load;
             ResumeLayout(false);
             PerformLayout();
         }
