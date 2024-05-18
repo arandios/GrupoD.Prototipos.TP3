@@ -18,19 +18,19 @@ namespace GrupoD.Prototipos.TP3
         // Variables de clase
         private int numeroOrden = 0; // Número de orden actual
         private List<Orden> listaOrdenes = new List<Orden>(); // Lista de órdenes
-        private const string filePath = "ordenes.json"; // Ruta del archivo JSON
+        private const string filePath = "ordenespreparacion.json"; // Ruta del archivo JSON
 
         // Constructor por defecto
 
-        public Orden_de_Selección()
+        public Orden_de_Selección(List<Orden> ordenesSeleccionadas)
         {
             InitializeComponent();
             LimpiarListView(); // Limpia el ListView
             CargarOrdenes(); // Carga las órdenes almacenadas
         }
 
-        // Constructor que recibe datos seleccionados
-        public Orden_de_Selección(List<string[]> datosSeleccionados)
+        //Inicio cuando ingresa el empleado
+        public Orden_de_Selección()
         {
             InitializeComponent();
             LimpiarListView(); // Limpia el ListView
@@ -77,6 +77,24 @@ namespace GrupoD.Prototipos.TP3
             GuardarOrdenes(); // Guarda las órdenes en el archivo JSON
         }
 
+        // guardar ordenes alternativo 
+
+        public void GuardarOrdenesSelec(List<Orden> nuevasOrdenes)
+        {
+            foreach (var nuevaOrden in nuevasOrdenes)
+            {
+                numeroOrden++; // Incrementa el número de orden
+                string numeroOrdenFormato = numeroOrden.ToString("000000");
+                ListViewItem item = new ListViewItem(nuevaOrden.NumeroOrden);
+                item.SubItems.Add($"{nuevaOrden.Mercaderia} ({nuevaOrden.Cantidad})");
+                item.SubItems.Add(nuevaOrden.Cliente);
+                lstOrdenes.Items.Add(item);
+            }
+
+            listaOrdenes.AddRange(nuevasOrdenes);
+            GuardarOrdenes();
+        }
+
         // Carga las órdenes almacenadas desde el archivo JSON
         private void CargarOrdenes()
         {
@@ -87,6 +105,8 @@ namespace GrupoD.Prototipos.TP3
 
                 foreach (var orden in listaOrdenes)
                 {
+                    numeroOrden++; // Incrementa el número de orden
+                    string numeroOrdenFormato = numeroOrden.ToString("000000");
                     ListViewItem item = new ListViewItem(orden.NumeroOrden);
                     item.SubItems.Add($"{orden.Mercaderia} ({orden.Cantidad})"); // Agrega mercadería y cantidad como un solo subelemento
                     item.SubItems.Add(orden.Cliente); // Agrega el cliente
@@ -95,7 +115,7 @@ namespace GrupoD.Prototipos.TP3
 
                 if (listaOrdenes.Count > 0)
                 {
-                    numeroOrden = int.Parse(listaOrdenes.Last().NumeroOrden);
+                    //numeroOrden = int.Parse(listaOrdenes.Last().NumeroOrden);
                 }
             }
             else
@@ -107,6 +127,7 @@ namespace GrupoD.Prototipos.TP3
         // Guarda las órdenes en el archivo JSON
         public void GuardarOrdenes()
         {
+            CargarOrdenes();
             string jsonString = JsonSerializer.Serialize(listaOrdenes);
             File.WriteAllText(filePath, jsonString);
         }

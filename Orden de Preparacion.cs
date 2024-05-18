@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -59,57 +61,63 @@ namespace GrupoD.Prototipos.TP3
 
         }
 
+
+        int numeroOrden = 0;
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            // Obtener los datos seleccionados del ListView
-            List<string[]> datosSeleccionados = new List<string[]>();
-            foreach (ListViewItem item in lstMercaderiaSeleccionada.SelectedItems)
+            List<Orden> ordenesSeleccionadas = new List<Orden>();
+            foreach (ListViewItem item in lstMercaderiaSeleccionada.Items)
             {
                 string mercaderia = item.SubItems[0].Text;
                 string cantidad = item.SubItems[1].Text;
                 string cliente = item.SubItems[2].Text;
-                datosSeleccionados.Add(new string[] { mercaderia, cantidad, cliente });
+                numeroOrden++; // Incrementa el número de orden
+                string numeroOrdenFormato = numeroOrden.ToString("000000");
+                ordenesSeleccionadas.Add(new Orden(numeroOrden.ToString(), mercaderia, cantidad, cliente));
             }
 
-            if (datosSeleccionados.Count > 0)
+            if (ordenesSeleccionadas.Count > 0)
             {
-                // Agrupar los datos seleccionados en un solo conjunto de datos
-                List<string[]> datosAgrupados = new List<string[]>();
-                string mercaderiaAgrupada = "";
-                string cantidadAgrupada = "";
-                string clienteAgrupado = "";
-
-                foreach (var datos in datosSeleccionados)
+                // Crear un mensaje de confirmación
+                string mensajeConfirmacion = "¿Estás seguro de generar la orden con los siguientes datos?\n\n";
+                foreach (var datos in ordenesSeleccionadas)
                 {
-                    // Combinar las mercaderías y cantidades
-                    mercaderiaAgrupada += $"{datos[0]}, ";
-                    cantidadAgrupada += $"{datos[1]}, ";
-                    clienteAgrupado = datos[2]; // Cliente es el mismo para todas las selecciones
-
-                    // Aquí también puedes realizar otras operaciones, como sumar las cantidades si es necesario
+                    mensajeConfirmacion += $"Mercadería: {datos.Mercaderia}, Cantidad: {datos.Cantidad}, Cliente: {datos.Cliente}\n";
                 }
 
-                // Agregar los datos agrupados al conjunto de datos final
-                datosAgrupados.Add(new string[] { mercaderiaAgrupada.TrimEnd(',', ' '), cantidadAgrupada.TrimEnd(',', ' '), clienteAgrupado });
+                // Mostrar el cuadro de diálogo de confirmación
+                DialogResult resultado = MessageBox.Show(mensajeConfirmacion, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                // Abrir el formulario Orden de Seleccion y pasar los datos agrupados
-                Orden_de_Selección formOrdenSeleccion = new Orden_de_Selección(datosAgrupados);
-                formOrdenSeleccion.GuardarOrdenesSeleccionadas(datosAgrupados);
-
-                // Eliminar los elementos seleccionados del ListView
-                for (int i = lstMercaderiaSeleccionada.SelectedIndices.Count - 1; i >= 0; i--)
+                // Si el usuario confirma
+                if (resultado == DialogResult.Yes)
                 {
-                    lstMercaderiaSeleccionada.Items.RemoveAt(lstMercaderiaSeleccionada.SelectedIndices[i]);
-                }
+                    // Procesar las órdenes seleccionadas
+                    Orden_de_Selección formOrdenSeleccion = new Orden_de_Selección(ordenesSeleccionadas);
+                    formOrdenSeleccion.GuardarOrdenesSelec(ordenesSeleccionadas);
 
-                MessageBox.Show("Se ha generado la orden con éxito");
+                    // Guardar las órdenes en un archivo JSON
+                    GuardarOrdenesEnJson(ordenesSeleccionadas);
+
+                    // Eliminar los elementos seleccionados del ListView
+                    for (int i = lstMercaderiaSeleccionada.SelectedIndices.Count - 1; i >= 0; i--)
+                    {
+                        lstMercaderiaSeleccionada.Items.RemoveAt(lstMercaderiaSeleccionada.SelectedIndices[i]);
+                    }
+
+                    MessageBox.Show("Se ha generado la orden con éxito");
+                }
+                else
+                {
+                    // El usuario canceló la operación
+                    MessageBox.Show("Operación cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+           
             }
             else
             {
                 MessageBox.Show("Por favor, seleccione al menos un elemento.");
             }
         }
-
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             // Verificar si hay un elemento seleccionado
@@ -124,6 +132,24 @@ namespace GrupoD.Prototipos.TP3
                 MessageBox.Show("Por favor, seleccione un elemento para borrar.");
             }
         }
+
+
+        // Constructor existente y otros métodos...
+
+        private void GuardarOrdenesEnJson(List<Orden> ordenes)
+        {
+            // Definir la ruta del archivo JSON con el nombre especificado
+            string rutaArchivo = "ordenespreparacion.json";
+
+            // Serializar la lista de órdenes a JSON
+            string json = JsonConvert.SerializeObject(ordenes, Formatting.Indented);
+
+            // Guardar el JSON en el archivo
+            File.WriteAllText(rutaArchivo, json);
+
+        }
+
+
 
     }
 }
