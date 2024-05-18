@@ -8,14 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace GrupoD.Prototipos.TP3
 {
     public partial class Orden_de_Preparacion : Form
     {
-        public Orden_de_Preparacion(int numeroCliente)
+        public Orden_de_Preparacion(string nombreCliente, string apellido)
         {
             InitializeComponent();
-            lblNroCliente.Text = numeroCliente.ToString();
+            lblNroCliente.Text = nombreCliente.ToString() + " " + apellido.ToString();
 
         }
 
@@ -48,7 +49,7 @@ namespace GrupoD.Prototipos.TP3
                     }
 
                     string cliente = lblNroCliente.Text;
-                    
+
                 }
                 else
                 {
@@ -63,7 +64,8 @@ namespace GrupoD.Prototipos.TP3
             // Obtener los datos seleccionados del ListView
             List<string[]> datosSeleccionados = new List<string[]>();
             foreach (ListViewItem item in lstMercaderiaSeleccionada.SelectedItems)
-            {   string mercaderia = item.SubItems[0].Text;
+            {
+                string mercaderia = item.SubItems[0].Text;
                 string cantidad = item.SubItems[1].Text;
                 string cliente = item.SubItems[2].Text;
                 datosSeleccionados.Add(new string[] { mercaderia, cantidad, cliente });
@@ -71,17 +73,58 @@ namespace GrupoD.Prototipos.TP3
 
             if (datosSeleccionados.Count > 0)
             {
-                // Abrir el formulario Orden de Seleccion y pasar los datos seleccionados
-                Orden_de_Selección formOrdenSeleccion = new Orden_de_Selección(datosSeleccionados);
-                //formOrdenSeleccion.Show();
-                formOrdenSeleccion.GuardarOrdenesSeleccionadas(datosSeleccionados);
-                MessageBox.Show("Se ha generado la orden con exito");
-                
+                // Agrupar los datos seleccionados en un solo conjunto de datos
+                List<string[]> datosAgrupados = new List<string[]>();
+                string mercaderiaAgrupada = "";
+                string cantidadAgrupada = "";
+                string clienteAgrupado = "";
+
+                foreach (var datos in datosSeleccionados)
+                {
+                    // Combinar las mercaderías y cantidades
+                    mercaderiaAgrupada += $"{datos[0]}, ";
+                    cantidadAgrupada += $"{datos[1]}, ";
+                    clienteAgrupado = datos[2]; // Cliente es el mismo para todas las selecciones
+
+                    // Aquí también puedes realizar otras operaciones, como sumar las cantidades si es necesario
+                }
+
+                // Agregar los datos agrupados al conjunto de datos final
+                datosAgrupados.Add(new string[] { mercaderiaAgrupada.TrimEnd(',', ' '), cantidadAgrupada.TrimEnd(',', ' '), clienteAgrupado });
+
+                // Abrir el formulario Orden de Seleccion y pasar los datos agrupados
+                Orden_de_Selección formOrdenSeleccion = new Orden_de_Selección(datosAgrupados);
+                formOrdenSeleccion.GuardarOrdenesSeleccionadas(datosAgrupados);
+
+                // Eliminar los elementos seleccionados del ListView
+                for (int i = lstMercaderiaSeleccionada.SelectedIndices.Count - 1; i >= 0; i--)
+                {
+                    lstMercaderiaSeleccionada.Items.RemoveAt(lstMercaderiaSeleccionada.SelectedIndices[i]);
+                }
+
+                MessageBox.Show("Se ha generado la orden con éxito");
             }
             else
             {
                 MessageBox.Show("Por favor, seleccione al menos un elemento.");
             }
         }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            // Verificar si hay un elemento seleccionado
+            if (lstMercaderiaSeleccionada.SelectedItems.Count > 0)
+            {
+                // Eliminar el elemento seleccionado
+                lstMercaderiaSeleccionada.Items.Remove(lstMercaderiaSeleccionada.SelectedItems[0]);
+            }
+            else
+            {
+                // Mostrar un mensaje si no hay ningún elemento seleccionado
+                MessageBox.Show("Por favor, seleccione un elemento para borrar.");
+            }
+        }
+
     }
 }
+

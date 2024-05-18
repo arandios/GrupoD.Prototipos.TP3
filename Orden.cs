@@ -3,17 +3,19 @@
     public class Orden
     {
         public string NumeroOrden { get; set; }
-        public string Detalle { get; set; }
+        public string Mercaderia { get; set; }
+        public string Cantidad { get; set; }
         public string Cliente { get; set; }
 
-        // Constructor sin parámetros requerido para la deserialización
-        public Orden() { }
-
-        public Orden(string numeroOrden, string detalle, string cliente)
+        public Orden(string numeroOrden, string mercaderia, string cantidad, string cliente)
         {
-            this.NumeroOrden = numeroOrden;
-            this.Detalle = detalle;
-            this.Cliente = cliente;
+            NumeroOrden = numeroOrden;
+            Mercaderia = mercaderia;
+            Cantidad = cantidad;
+            Cliente = cliente;
         }
+
+        public Orden() { }  
     }
+
 }

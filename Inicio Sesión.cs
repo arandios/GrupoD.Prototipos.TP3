@@ -68,7 +68,7 @@ namespace GrupoD.Prototipos.TP3
                 {
                     MessageBox.Show("Inicio de sesión exitoso como cliente: " + cliente.Nombre + " " + cliente.Apellido);
       
-                    Orden_de_Preparacion formOrdenPreparacion = new Orden_de_Preparacion(cliente.NumeroCliente);
+                    Orden_de_Preparacion formOrdenPreparacion = new Orden_de_Preparacion(cliente.Nombre, cliente.Apellido);
                     formOrdenPreparacion.Show();
                     return;
                     

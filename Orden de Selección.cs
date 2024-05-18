@@ -15,93 +15,69 @@ namespace GrupoD.Prototipos.TP3
 {
     public partial class Orden_de_Selección : Form
     {
+        // Variables de clase
+        private int numeroOrden = 0; // Número de orden actual
+        private List<Orden> listaOrdenes = new List<Orden>(); // Lista de órdenes
+        private const string filePath = "ordenes.json"; // Ruta del archivo JSON
 
-        private int numeroOrden = 0;
-        private List<Orden> listaOrdenes = new List<Orden>();
-        private const string filePath = "ordenes.json";
-        public Orden_de_Selección(List<string[]> datosSeleccionados)
-        {
-            InitializeComponent();
-            
-            CargarOrdenes();
-            AgregarOrdenes(datosSeleccionados);
-
-        }
+        // Constructor por defecto
 
         public Orden_de_Selección()
         {
             InitializeComponent();
-            CargarOrdenes();
+            LimpiarListView(); // Limpia el ListView
+            CargarOrdenes(); // Carga las órdenes almacenadas
         }
 
-
-        private void AgregarOrdenes(List<string[]> datosSeleccionados)
+        // Constructor que recibe datos seleccionados
+        public Orden_de_Selección(List<string[]> datosSeleccionados)
         {
-            // Generar y agregar las órdenes al ListView
-            foreach (string[] datos in datosSeleccionados)
-            {
-                numeroOrden++;
-                string numeroOrdenFormato = numeroOrden.ToString("000000");
-
-                ListViewItem item = new ListViewItem(numeroOrdenFormato);
-                item.SubItems.Add($"{datos[0]} ({datos[1]})"); // Mercadería
-                item.SubItems.Add(datos[2]); 
-
-                lstOrdenes.Items.Add(item);
-            }
-
-            GuardarOrdenes();
+            InitializeComponent();
+            LimpiarListView(); // Limpia el ListView
+            CargarOrdenes(); // Carga las órdenes almacenadas
         }
 
-        private void PrecargarOrdenes()
+        // Limpia el ListView
+
+        private void LimpiarListView()
         {
-            listaOrdenes.Add(new Orden("000001", "Producto4 - 10", "1001"));
-            listaOrdenes.Add(new Orden("000002", "Producto2 - 20", "1002"));
-            listaOrdenes.Add(new Orden("000003", "Producto3 - 30", "1003"));
-            listaOrdenes.Add(new Orden("000004", "Producto4 - 40", "1004"));
-            listaOrdenes.Add(new Orden("000005", "Producto5 - 50", "1005"));
-            listaOrdenes.Add(new Orden("000006", "Producto6 - 60", "1006"));
-            listaOrdenes.Add(new Orden("000007", "Producto7 - 70", "1007"));
-            listaOrdenes.Add(new Orden("000008", "Producto8 - 80", "1008"));
-            listaOrdenes.Add(new Orden("000009", "Producto9 - 90", "1009"));
-            listaOrdenes.Add(new Orden("000010", "Producto10 - 100", "1010"));
-
-
-            foreach (var orden in listaOrdenes)
-            {
-                ListViewItem item = new ListViewItem(orden.NumeroOrden);
-                item.SubItems.Add(orden.Detalle);
-                item.SubItems.Add(orden.Cliente);
-                lstOrdenes.Items.Add(item);
-            }
+            lstOrdenes.Items.Clear();
         }
 
-        public void GuardarOrdenes()
-        {
-            string jsonString = JsonSerializer.Serialize(listaOrdenes);
-            File.WriteAllText(filePath, jsonString);
-        }
-
+        /// <summary>
+        /// guarda datos que el cliente seleccionó en la pantalla orden de preparacion
+        /// </summary>
+        /// <param name="datosSeleccionados"></param>
         public void GuardarOrdenesSeleccionadas(List<string[]> datosSeleccionados)
         {
-            List<Orden> ordenes = new List<Orden>();
+            List<Orden> nuevasOrdenes = new List<Orden>();
 
             foreach (var datos in datosSeleccionados)
             {
-                string numeroOrden = (listaOrdenes.Count + 1).ToString("000000");
-                string detalle = $"{datos[0]} - {datos[1]}";
-                string cliente = datos[2];
+                if (datos.Length >= 3) // Verificar si hay suficientes elementos en el array
+                {
+                    numeroOrden++; // Incrementa el número de orden
+                    string numeroOrdenFormato = numeroOrden.ToString("000000");
 
-                Orden nuevaOrden = new Orden(numeroOrden, detalle, cliente);
-                ordenes.Add(nuevaOrden);
+                    string mercaderia = datos[0]; // Mercadería seleccionada
+                    string cantidad = datos[1]; // Cantidad seleccionada
+                    string cliente = datos[2]; // Cliente seleccionado
+
+                    ListViewItem item = new ListViewItem(numeroOrdenFormato);
+                    item.SubItems.Add($"{mercaderia} ({cantidad})"); // Agrega mercadería y cantidad como un solo subelemento
+                    item.SubItems.Add(cliente); // Agrega el cliente
+                    lstOrdenes.Items.Add(item); // Agrega el ListViewItem al ListView
+
+                    Orden nuevaOrden = new Orden(numeroOrdenFormato, mercaderia, cantidad, cliente);
+                    nuevasOrdenes.Add(nuevaOrden); // Agrega la nueva orden a la lista de órdenes
+                }
             }
 
-            listaOrdenes.AddRange(ordenes);
-
-            string jsonString = JsonSerializer.Serialize(listaOrdenes);
-            File.WriteAllText(filePath, jsonString);
+            listaOrdenes.AddRange(nuevasOrdenes); // Agrega las nuevas órdenes a la lista de órdenes
+            GuardarOrdenes(); // Guarda las órdenes en el archivo JSON
         }
 
+        // Carga las órdenes almacenadas desde el archivo JSON
         private void CargarOrdenes()
         {
             if (File.Exists(filePath))
@@ -112,9 +88,9 @@ namespace GrupoD.Prototipos.TP3
                 foreach (var orden in listaOrdenes)
                 {
                     ListViewItem item = new ListViewItem(orden.NumeroOrden);
-                    item.SubItems.Add(orden.Detalle);
-                    item.SubItems.Add(orden.Cliente);
-                    lstOrdenes.Items.Add(item);
+                    item.SubItems.Add($"{orden.Mercaderia} ({orden.Cantidad})"); // Agrega mercadería y cantidad como un solo subelemento
+                    item.SubItems.Add(orden.Cliente); // Agrega el cliente
+                    lstOrdenes.Items.Add(item); // Agrega el ListViewItem al ListView
                 }
 
                 if (listaOrdenes.Count > 0)
@@ -124,10 +100,22 @@ namespace GrupoD.Prototipos.TP3
             }
             else
             {
-                PrecargarOrdenes();
-                GuardarOrdenes();
+                MessageBox.Show("No se pudo realizar la carga de los datos"); // Muestra un mensaje si no se encuentra el archivo JSON
             }
         }
 
+        // Guarda las órdenes en el archivo JSON
+        public void GuardarOrdenes()
+        {
+            string jsonString = JsonSerializer.Serialize(listaOrdenes);
+            File.WriteAllText(filePath, jsonString);
+        }
+
+        // Evento del botón "Limpiar" que limpia el ListView
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            LimpiarListView();
+        }
     }
+
 }

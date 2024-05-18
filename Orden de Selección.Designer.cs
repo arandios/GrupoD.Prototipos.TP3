@@ -29,15 +29,17 @@
         private void InitializeComponent()
         {
             lstOrdenes = new ListView();
-            label1 = new Label();
-            btnGenerarOS = new Button();
             columnNumeroOrden = new ColumnHeader();
             columnDetalle = new ColumnHeader();
             columnCliente = new ColumnHeader();
+            label1 = new Label();
+            btnGenerarOS = new Button();
+            btnLimpiar = new Button();
             SuspendLayout();
             // 
             // lstOrdenes
             // 
+            lstOrdenes.AutoArrange = false;
             lstOrdenes.Columns.AddRange(new ColumnHeader[] { columnNumeroOrden, columnDetalle, columnCliente });
             lstOrdenes.Location = new Point(12, 27);
             lstOrdenes.Name = "lstOrdenes";
@@ -45,24 +47,6 @@
             lstOrdenes.TabIndex = 0;
             lstOrdenes.UseCompatibleStateImageBehavior = false;
             lstOrdenes.View = View.Details;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(127, 15);
-            label1.TabIndex = 1;
-            label1.Text = "ORDENES PENDIENTES";
-            // 
-            // btnGenerarOS
-            // 
-            btnGenerarOS.Location = new Point(140, 300);
-            btnGenerarOS.Name = "btnGenerarOS";
-            btnGenerarOS.Size = new Size(224, 23);
-            btnGenerarOS.TabIndex = 2;
-            btnGenerarOS.Text = "GENERAR ORDEN";
-            btnGenerarOS.UseVisualStyleBackColor = true;
             // 
             // columnNumeroOrden
             // 
@@ -80,11 +64,40 @@
             columnCliente.Text = "CLIENTE";
             columnCliente.Width = 80;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(127, 15);
+            label1.TabIndex = 1;
+            label1.Text = "ORDENES PENDIENTES";
+            // 
+            // btnGenerarOS
+            // 
+            btnGenerarOS.Location = new Point(12, 300);
+            btnGenerarOS.Name = "btnGenerarOS";
+            btnGenerarOS.Size = new Size(224, 23);
+            btnGenerarOS.TabIndex = 2;
+            btnGenerarOS.Text = "GENERAR ORDEN";
+            btnGenerarOS.UseVisualStyleBackColor = true;
+            // 
+            // btnLimpiar
+            // 
+            btnLimpiar.Location = new Point(319, 302);
+            btnLimpiar.Name = "btnLimpiar";
+            btnLimpiar.Size = new Size(143, 23);
+            btnLimpiar.TabIndex = 3;
+            btnLimpiar.Text = "LIMPIAR";
+            btnLimpiar.UseVisualStyleBackColor = true;
+            btnLimpiar.Click += btnLimpiar_Click;
+            // 
             // Orden_de_Selección
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(526, 337);
+            Controls.Add(btnLimpiar);
             Controls.Add(btnGenerarOS);
             Controls.Add(label1);
             Controls.Add(lstOrdenes);
@@ -102,5 +115,6 @@
         private ColumnHeader columnCliente;
         private Label label1;
         private Button btnGenerarOS;
+        private Button btnLimpiar;
     }
 }

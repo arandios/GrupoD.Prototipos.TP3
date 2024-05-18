@@ -47,6 +47,7 @@ namespace GrupoD.Prototipos.TP3
             txtCantidad = new TextBox();
             lblusuario = new Label();
             lblNroCliente = new Label();
+            btnBorrar = new Button();
             SuspendLayout();
             // 
             // btnAgregar
@@ -61,7 +62,7 @@ namespace GrupoD.Prototipos.TP3
             // 
             // btnGenerar
             // 
-            btnGenerar.Location = new Point(87, 366);
+            btnGenerar.Location = new Point(12, 366);
             btnGenerar.Name = "btnGenerar";
             btnGenerar.Size = new Size(217, 23);
             btnGenerar.TabIndex = 1;
@@ -98,6 +99,7 @@ namespace GrupoD.Prototipos.TP3
             // 
             // lstMercaderiaSeleccionada
             // 
+            lstMercaderiaSeleccionada.AutoArrange = false;
             lstMercaderiaSeleccionada.Columns.AddRange(new ColumnHeader[] { columnMercaderia, columnCantidad, columnCliente });
             lstMercaderiaSeleccionada.Items.AddRange(new ListViewItem[] { listViewItem1, listViewItem2, listViewItem3, listViewItem4, listViewItem5 });
             lstMercaderiaSeleccionada.Location = new Point(11, 205);
@@ -158,11 +160,22 @@ namespace GrupoD.Prototipos.TP3
             lblNroCliente.TabIndex = 9;
             lblNroCliente.Text = "NRO CLIENTE";
             // 
+            // btnBorrar
+            // 
+            btnBorrar.Location = new Point(246, 366);
+            btnBorrar.Name = "btnBorrar";
+            btnBorrar.Size = new Size(146, 23);
+            btnBorrar.TabIndex = 10;
+            btnBorrar.Text = "BORRAR";
+            btnBorrar.UseVisualStyleBackColor = true;
+            btnBorrar.Click += btnBorrar_Click;
+            // 
             // Orden_de_Preparacion
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(446, 409);
+            Controls.Add(btnBorrar);
             Controls.Add(lblNroCliente);
             Controls.Add(lblusuario);
             Controls.Add(txtCantidad);
@@ -199,5 +212,6 @@ namespace GrupoD.Prototipos.TP3
         private Label lblusuario;
         private Label lblNroCliente;
         private ColumnHeader columnCliente;
+        private Button btnBorrar;
     }
 }
