@@ -45,7 +45,7 @@ namespace GrupoD.Prototipos.TP3
 
         /// <summary>
         /// si es un cliente quien inicia sesion se va a abrir la pantalla de Orden de preparacion
-        /// si es un empleado quien inicia sesion se abre directamente la pantalla Orden de seleecion
+        /// si es un empleado quien inicia sesion se abre directamente la pantalla Orden de seleecion.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
