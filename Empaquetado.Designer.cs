@@ -102,5 +102,7 @@
         private ColumnHeader columnNroOrdenEmpaquetar;
         private ColumnHeader columnDatalleEmpaquetar;
         private ColumnHeader columnClienteEmpaquetar;
+        
+
     }
 }
