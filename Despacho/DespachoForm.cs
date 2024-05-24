@@ -16,5 +16,10 @@ namespace GrupoD.Prototipos.TP3.Despacho
         {
             InitializeComponent();
         }
+
+        private void DespachoForm_Load(object sender, EventArgs e)
+        {
+            DespachoModelo despaModel = new DespachoModelo();   
+        }
     }
 }
