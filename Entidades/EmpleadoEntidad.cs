@@ -1,8 +1,8 @@
-﻿namespace GrupoD.Prototipos.TP3.InicioSesion;
+﻿namespace GrupoD.Prototipos.TP3.Entidades;
 
-internal class Empleado
+internal class EmpleadoEntidad
 {
-    public Empleado(string v1, string v2, string v3, int v4, string v5)
+    public EmpleadoEntidad(string v1, string v2, string v3, int v4, string v5)
     {
         Nombre = v1;
         Apellido = v2;

@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GrupoD.Prototipos.TP3;
-public partial class InicioForm : Form
+namespace GrupoD.Prototipos.TP3.Despacho
 {
-    public InicioForm()
+    public partial class DespachoForm : Form
     {
-        InitializeComponent();
+        public DespachoForm()
+        {
+            InitializeComponent();
+        }
     }
 }

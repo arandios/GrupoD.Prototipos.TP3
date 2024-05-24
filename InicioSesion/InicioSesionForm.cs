@@ -1,3 +1,5 @@
+using GrupoD.Prototipos.TP3.Entidades;
+
 namespace GrupoD.Prototipos.TP3.InicioSesion
 {
     public partial class InicioSesionForm : Form
@@ -14,8 +16,6 @@ namespace GrupoD.Prototipos.TP3.InicioSesion
         {
             modelo = new InicioSesionModelo();
         }
-
-
 
         // Lista de client
         /// <summary>
@@ -38,12 +38,12 @@ namespace GrupoD.Prototipos.TP3.InicioSesion
             // Verificar si se trata de un cliente
             if (tipoUsuario == "CLIENTE")
             {
-                Cliente cliente = modelo.Clientes.Find(c => c.DNI.ToString() == usuario && c.Contraseña == contraseña);
+                ClienteEntidad cliente = modelo.Clientes.Find(c => c.DNI.ToString() == usuario && c.Contraseña == contraseña);
                 if (cliente != null)
                 {
                     MessageBox.Show("Inicio de sesión exitoso como cliente: " + cliente.Nombre + " " + cliente.Apellido);
 
-                    Orden_de_Preparacion formOrdenPreparacion = new Orden_de_Preparacion(cliente.Nombre, cliente.Apellido);
+                    OrdenDePreparacionForm formOrdenPreparacion = new (cliente.Nombre, cliente.Apellido);
                     formOrdenPreparacion.ShowDialog();
                     return;
                 }
@@ -52,12 +52,12 @@ namespace GrupoD.Prototipos.TP3.InicioSesion
             else if (tipoUsuario == "EMPLEADO")
             {
                 // Verificar si se trata de un empleado
-                Empleado empleado = modelo.Empleados.Find(e => e.Legajo.ToString() == usuario && e.Contraseña == contraseña);
+                EmpleadoEntidad empleado = modelo.Empleados.Find(e => e.Legajo.ToString() == usuario && e.Contraseña == contraseña);
                 if (empleado != null)
                 {
                     MessageBox.Show("Inicio de sesión exitoso como empleado: " + empleado.Nombre + " " + empleado.Apellido);
-                    Orden_de_Selección formOrdenDeSeleccion = new Orden_de_Selección();
-                    formOrdenDeSeleccion.Show();
+                    MenuInicioForm menu = new();
+                    menu.ShowDialog();
                     return;
                 }
             }

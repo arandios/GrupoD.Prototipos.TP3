@@ -1,7 +1,7 @@
 ﻿
 namespace GrupoD.Prototipos.TP3
 {
-    partial class Orden_de_Preparacion
+    partial class OrdenDePreparacionForm
     {
         /// <summary>
         /// Required designer variable.

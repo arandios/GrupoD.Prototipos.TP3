@@ -1,6 +1,6 @@
 ﻿namespace GrupoD.Prototipos.TP3
 {
-    partial class Orden_de_Selección
+    partial class OrdenDeSeleccionForm
     {
         /// <summary>
         /// Required designer variable.
@@ -92,7 +92,7 @@
             btnLimpiar.UseVisualStyleBackColor = true;
             btnLimpiar.Click += btnLimpiar_Click;
             // 
-            // Orden_de_Selección
+            // Orden de selección
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -101,8 +101,8 @@
             Controls.Add(btnGenerarOS);
             Controls.Add(label1);
             Controls.Add(lstOrdenes);
-            Name = "Orden_de_Selección";
-            Text = "Orden_de_Selección";
+            Name = "Orden de selección";
+            Text = "Orden de selección";
             ResumeLayout(false);
             PerformLayout();
         }

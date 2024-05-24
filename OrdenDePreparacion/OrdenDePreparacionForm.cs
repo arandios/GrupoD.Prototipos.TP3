@@ -1,25 +1,17 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using GrupoD.Prototipos.TP3.Entidades;
+using GrupoD.Prototipos.TP3.OrdenDePreparacion;
 
 
 namespace GrupoD.Prototipos.TP3
 {
-    public partial class Orden_de_Preparacion : Form
+    public partial class OrdenDePreparacionForm : Form
     {
-        public Orden_de_Preparacion(string nombreCliente, string apellido)
+        private OrdenDePreparacionModelo _modelo;
+        public OrdenDePreparacionForm(string nombreCliente, string apellido)
         {
             InitializeComponent();
             lblNroCliente.Text = nombreCliente.ToString() + " " + apellido.ToString();
-
+            _modelo = new ();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -65,7 +57,7 @@ namespace GrupoD.Prototipos.TP3
         int numeroOrden = 0;
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            List<Orden> ordenesSeleccionadas = new List<Orden>();
+            List<OrdenDePreparacionEntidad> ordenesSeleccionadas = new List<OrdenDePreparacionEntidad>();
             foreach (ListViewItem item in lstMercaderiaSeleccionada.Items)
             {
                 string mercaderia = item.SubItems[0].Text;
@@ -73,7 +65,13 @@ namespace GrupoD.Prototipos.TP3
                 string cliente = item.SubItems[2].Text;
                 numeroOrden++; // Incrementa el número de orden
                 string numeroOrdenFormato = numeroOrden.ToString("000000");
-                ordenesSeleccionadas.Add(new Orden(numeroOrden.ToString(), mercaderia, cantidad, cliente));
+                ordenesSeleccionadas.Add(
+                    new OrdenDePreparacionEntidad() {
+                        NroOrden = numeroOrden.ToString(),
+                        Mercaderia = mercaderia,
+                        Cantidad = cantidad,
+                        Cliente = cliente 
+                    });
             }
 
             if (ordenesSeleccionadas.Count > 0)
@@ -91,12 +89,8 @@ namespace GrupoD.Prototipos.TP3
                 // Si el usuario confirma
                 if (resultado == DialogResult.Yes)
                 {
-                    // Procesar las órdenes seleccionadas
-                    Orden_de_Selección formOrdenSeleccion = new Orden_de_Selección(ordenesSeleccionadas);
-                    formOrdenSeleccion.GuardarOrdenesSelec(ordenesSeleccionadas);
-
-                    // Guardar las órdenes en un archivo JSON
-                    GuardarOrdenesEnJson(ordenesSeleccionadas);
+                    // Procesar las órdenes 
+                    // Llamar al modelo
 
                     // Eliminar los elementos seleccionados del ListView
                     for (int i = lstMercaderiaSeleccionada.SelectedIndices.Count - 1; i >= 0; i--)
@@ -132,25 +126,6 @@ namespace GrupoD.Prototipos.TP3
                 MessageBox.Show("Por favor, seleccione un elemento para borrar.");
             }
         }
-
-
-        // Constructor existente y otros métodos...
-
-        private void GuardarOrdenesEnJson(List<Orden> ordenes)
-        {
-            // Definir la ruta del archivo JSON con el nombre especificado
-            string rutaArchivo = "ordenespreparacion.json";
-
-            // Serializar la lista de órdenes a JSON
-            string json = JsonConvert.SerializeObject(ordenes, Formatting.Indented);
-
-            // Guardar el JSON en el archivo
-            File.WriteAllText(rutaArchivo, json);
-
-        }
-
-
-
     }
 }
 

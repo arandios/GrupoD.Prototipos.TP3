@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GrupoD.Prototipos.TP3.InicioSesion;
-internal class Cliente
+﻿namespace GrupoD.Prototipos.TP3.Entidades;
+internal class ClienteEntidad
 {
-    public Cliente(string apellido, string nombre, string dni, int numeroCliente, string contraseña)
+    public ClienteEntidad(string apellido, string nombre, string dni, int numeroCliente, string contraseña)
     {
         Apellido = apellido;
         Nombre = nombre;
