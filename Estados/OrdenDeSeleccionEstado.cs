@@ -3,6 +3,7 @@
     public enum OrdenDeSeleccionEstado
     {
         PRIORIZADA,
-        SELECCIONADA
+        EMPAQUETADA,
+        DESPACHADA
     }
 }

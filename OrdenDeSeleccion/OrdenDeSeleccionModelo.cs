@@ -7,14 +7,11 @@ namespace GrupoD.Prototipos.TP3.OrdenDeSeleccion
     public class OrdenDeSeleccionModelo
     {
         private readonly List<OrdenDeSeleccionEntidad> _ordenesDeSeleccion;
-        private readonly List<OrdenDePreparacionEntidad> _ordenesDePreparacionPendientes;
-        // Para pruebas llama al modelo (datos en memoria), para finalizar el desarrollo cambiar al archivo.
-        private readonly OrdenDePreparacionModelo _preparacionModelo;
+        private readonly List<OrdenDePreparacionEntidad> _ordenesDePreparacion;
         public OrdenDeSeleccionModelo()
         {
             _ordenesDeSeleccion = new ();
-            _preparacionModelo = new ();
-            _ordenesDePreparacionPendientes = new List<OrdenDePreparacionEntidad>
+            _ordenesDePreparacion = new List<OrdenDePreparacionEntidad>
             {
                 new ()
                 {
@@ -56,7 +53,8 @@ namespace GrupoD.Prototipos.TP3.OrdenDeSeleccion
 
         public List<OrdenDePreparacionEntidad> ObtenerOrdenesPendientes()
         {
-            return _ordenesDePreparacionPendientes;
+            return _ordenesDePreparacion
+                .FindAll(op => op.Estado == OrdenDePreparacionEstado.PENDIENTE);
         }
 
         public string Crear(OrdenDeSeleccionEntidad orden)
@@ -64,6 +62,11 @@ namespace GrupoD.Prototipos.TP3.OrdenDeSeleccion
             string error = string.Empty;
             orden.Estado = OrdenDeSeleccionEstado.PRIORIZADA;
             _ordenesDeSeleccion.Add(orden);
+            _ordenesDePreparacion.ForEach(op =>
+            {
+                if (op.NroOrden == orden.NumeroOrdenPreparacion)
+                    op.Estado = OrdenDePreparacionEstado.EN_PREPARACION;
+            });
             return error;
         }
     }

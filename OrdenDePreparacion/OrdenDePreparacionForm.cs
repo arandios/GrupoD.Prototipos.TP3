@@ -29,7 +29,18 @@ namespace GrupoD.Prototipos.TP3
                         if (cantidad > int.Parse(mercaderiaSelected[2].Text))
                             error += $"La cantidad a preparar de {mercaderiaSelected[1].Text}" +
                                 " no puede superar la cantidad en inventario.\n";
-                            
+
+                        for (int j = 0; j < lstMercaderiaSeleccionada.Items.Count; j++)
+                        {
+                            if (lstMercaderiaSeleccionada.Items[j].Text == mercaderiaSelected[0].Text)
+                            {
+                                error += "No puede agregar una mercadería ya seleccionada.";
+                                break;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(error)) break;
+
                         mercaderias.Add(new MercaderiaEntidad()
                         {
                             Id = int.Parse(mercaderiaSelected[0].Text),
@@ -93,7 +104,7 @@ namespace GrupoD.Prototipos.TP3
                     if (string.IsNullOrEmpty(error))
                     {
                         lstMercaderiaSeleccionada.Items.Clear();
-                        ActualizarMercaderiasDisponibles(orden.Mercaderias);
+                        LoadCliente();
                         MessageBox.Show("Se ha generado la orden con éxito.");
                     }
                     else MessageBox.Show(error);
@@ -107,21 +118,8 @@ namespace GrupoD.Prototipos.TP3
         {
             lblNroCliente.Text = $"{_cliente.Nombre.ToString().ToUpper()}, {_cliente.Apellido.ToString().ToUpper()}";
             listMercaderias.Items.Clear();
-            listMercaderias.Items.AddRange(GetMercaderiaItems(_cliente.Mercaderias));
-        }
-        private void ActualizarMercaderiasDisponibles(List<MercaderiaEntidad> mercaderias)
-        {
-            foreach (MercaderiaEntidad m in mercaderias)
-            {
-                _cliente.Mercaderias.ForEach(item =>
-                {
-                    if (m.Id == item.Id)
-                        item.Cantidad -= m.Cantidad;
-                });
-            }
-
-            _cliente.Mercaderias.RemoveAll(m => m.Cantidad == 0);
-            LoadCliente();
+            var mercaderiasDeCliente = _modelo.ObtenerMercaderiasPorCliente(_cliente);
+            listMercaderias.Items.AddRange(GetMercaderiaItems(mercaderiasDeCliente));
         }
         private static ListViewItem[] GetMercaderiaItems(List<MercaderiaEntidad> mercaderias)
         {
@@ -137,4 +135,3 @@ namespace GrupoD.Prototipos.TP3
         }
     }
 }
-

@@ -20,7 +20,8 @@ namespace GrupoD.Prototipos.TP3
 
         private void LoadOrdenesPendientes()
         {
-            _ordenesPendientes = _ordenesPendientes ?? _modelo.ObtenerOrdenesPendientes();
+            _ordenesPendientes = _modelo.ObtenerOrdenesPendientes();
+            lstOrdenes.Items.Clear();
             lstOrdenes.Items.AddRange(ObtenerOrdenesPendientesItems(_ordenesPendientes));
         }
 
@@ -135,7 +136,7 @@ namespace GrupoD.Prototipos.TP3
                     if (string.IsNullOrEmpty(error))
                     {
                         listPrioridad.Items.Clear();
-                        ActualizarOrdenesPendientes(orden);
+                        LoadOrdenesPendientes();
                         MessageBox.Show("Se ha generado la orden con éxito.");
                     }
                     else MessageBox.Show(error);
@@ -144,22 +145,6 @@ namespace GrupoD.Prototipos.TP3
                     MessageBox.Show("Operación cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show("Por favor, seleccione al menos un elemento.");
-        }
-
-        private void ActualizarOrdenesPendientes(OrdenDeSeleccionEntidad orden)
-        {
-            OrdenDePreparacionEntidad preparacion = null;
-            foreach (OrdenDePreparacionEntidad op in _ordenesPendientes)
-            {
-                if (op.NroOrden == orden.NumeroOrdenPreparacion)
-                    preparacion = op;
-            }
-
-            if (preparacion is not null)
-                _ordenesPendientes.Remove(preparacion);
-
-            lstOrdenes.Items.Clear();
-            LoadOrdenesPendientes();
         }
     }
 }

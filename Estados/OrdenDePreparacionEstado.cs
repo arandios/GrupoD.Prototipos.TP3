@@ -3,7 +3,7 @@
     public enum OrdenDePreparacionEstado
     {
         PENDIENTE,
-        PREPARADA,
-        FINALIZADA
+        EN_PREPARACION,
+        DESPACHADA
     }
 }

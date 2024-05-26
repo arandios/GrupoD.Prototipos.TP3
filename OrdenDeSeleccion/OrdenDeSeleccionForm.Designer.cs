@@ -35,16 +35,17 @@
             btnGenerarOS = new Button();
             listPrioridad = new ListView();
             mercaderia = new ColumnHeader();
+            cantidad = new ColumnHeader();
             label2 = new Label();
             buttonSubir = new Button();
             buttonBajar = new Button();
-            cantidad = new ColumnHeader();
             SuspendLayout();
             // 
             // lstOrdenes
             // 
             lstOrdenes.AutoArrange = false;
             lstOrdenes.Columns.AddRange(new ColumnHeader[] { columnNumeroOrden, columnCliente });
+            lstOrdenes.FullRowSelect = true;
             lstOrdenes.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             lstOrdenes.Location = new Point(12, 32);
             lstOrdenes.MultiSelect = false;
@@ -102,6 +103,10 @@
             mercaderia.Text = "MERCADERIA";
             mercaderia.Width = 140;
             // 
+            // cantidad
+            // 
+            cantidad.Text = "CANTIDAD";
+            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -130,10 +135,6 @@
             buttonBajar.Text = "BAJAR";
             buttonBajar.UseVisualStyleBackColor = true;
             buttonBajar.Click += ButtonBajar_Click;
-            // 
-            // cantidad
-            // 
-            cantidad.Text = "CANTIDAD";
             // 
             // OrdenDeSeleccionForm
             // 
