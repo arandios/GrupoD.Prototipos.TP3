@@ -1,4 +1,3 @@
-using GrupoD.Prototipos.TP3.Empaquetado;
 using GrupoD.Prototipos.TP3.InicioSesion;
 
 namespace GrupoD.Prototipos.TP3
@@ -16,6 +15,5 @@ namespace GrupoD.Prototipos.TP3
             ApplicationConfiguration.Initialize();
             Application.Run(new InicioSesionForm());
         }
-
     }
 }

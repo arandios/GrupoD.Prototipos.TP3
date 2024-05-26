@@ -50,7 +50,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
                             detalle += $"{m.Descripcion}, Cantidad: {m.Cantidad}\n";
                         });
                 });
-                MessageBox.Show(detalle);
+                MessageBox.Show(detalle, "Detalle de orden");
             }
         }
 
@@ -76,7 +76,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
 
                     if (string.IsNullOrEmpty(error))
                     {
-                        ActualizarOrdenesPriorizadas(ordenesSeleccionadas);
+                        LoadOrdenesPriorizadas();
                         MessageBox.Show("Ordenes listas para despacho.");
                     }
                     else MessageBox.Show(error);
@@ -85,14 +85,6 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
                     MessageBox.Show("Operación cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show("Por favor, seleccione al menos un elemento.");
-        }
-
-        private void ActualizarOrdenesPriorizadas(List<int> ordenesEmpaquetadas)
-        {
-            _ordenesPriorizadas.RemoveAll(os => ordenesEmpaquetadas.Contains(os.Numero));
-
-            listOrdenesSeleccion.Items.Clear();
-            LoadOrdenesPriorizadas();
         }
     }
 }
