@@ -1,130 +1,139 @@
 ﻿using GrupoD.Prototipos.TP3.Entidades;
 using GrupoD.Prototipos.TP3.OrdenDePreparacion;
 
-
 namespace GrupoD.Prototipos.TP3
 {
     public partial class OrdenDePreparacionForm : Form
     {
-        private OrdenDePreparacionModelo _modelo;
-        public OrdenDePreparacionForm(string nombreCliente, string apellido)
+        private readonly OrdenDePreparacionModelo _modelo;
+        private readonly ClienteEntidad _cliente;
+        public OrdenDePreparacionForm(ClienteEntidad cliente)
         {
+            _modelo = new();
+            _cliente = cliente;
             InitializeComponent();
-            lblNroCliente.Text = nombreCliente.ToString() + " " + apellido.ToString();
-            _modelo = new ();
+            LoadCliente();
         }
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-
+            if (listMercaderias.CheckedItems != null && listMercaderias.CheckedItems.Count > 0)
             {
-                // Verificar si se ha seleccionado un elemento en el ListBox
-                if (lstMercaderiaOP.SelectedItem != null)
+                if (int.TryParse(txtCantidad.Text, out int cantidad))
                 {
-                    // Obtener el valor seleccionado en el ListBox
-                    string mercaderia = lstMercaderiaOP.SelectedItem.ToString();
-
-                    // Obtener la cantidad ingresada en el TextBox
-                    int cantidad;
-                    if (int.TryParse(txtCantidad.Text, out cantidad))
+                    List<MercaderiaEntidad> mercaderias = new();
+                    string error = string.Empty;
+                    for (int i = 0; i < listMercaderias.CheckedItems.Count; i++)
                     {
-                        // Agregar los valores al ListView
-                        ListViewItem item = new ListViewItem(mercaderia);
-                        item.SubItems.Add(cantidad.ToString());
-                        lstMercaderiaSeleccionada.Items.Add(item);
-                        item.SubItems.Add(lblNroCliente.Text);
+                        var mercaderiaSelected = listMercaderias.CheckedItems[i].SubItems;
 
-                        // Limpiar el TextBox después de agregar
+                        if (cantidad > int.Parse(mercaderiaSelected[2].Text))
+                            error += $"La cantidad a preparar de {mercaderiaSelected[1].Text}" +
+                                " no puede superar la cantidad en inventario.\n";
+                            
+                        mercaderias.Add(new MercaderiaEntidad()
+                        {
+                            Id = int.Parse(mercaderiaSelected[0].Text),
+                            Descripcion = mercaderiaSelected[1].Text,
+                            Cantidad = cantidad,
+                            NumeroCliente = _cliente.NumeroCliente
+                        });
+                    }
+
+                    if (string.IsNullOrEmpty(error))
+                    {
+                        lstMercaderiaSeleccionada.Items.AddRange(GetMercaderiaItems(mercaderias));
                         txtCantidad.Clear();
                     }
-                    else
-                    {
-                        MessageBox.Show("Por favor, ingrese una cantidad válida.");
-                    }
-
-                    string cliente = lblNroCliente.Text;
-
+                    else MessageBox.Show(error);
                 }
-                else
-                {
-                    MessageBox.Show("Por favor, seleccione un elemento en la lista de mercadería.");
-                }
+                else MessageBox.Show("Por favor, ingrese una cantidad válida.");
             }
-
-        }
-
-
-        int numeroOrden = 0;
-        private void btnGenerar_Click(object sender, EventArgs e)
-        {
-            List<OrdenDePreparacionEntidad> ordenesSeleccionadas = new List<OrdenDePreparacionEntidad>();
-            foreach (ListViewItem item in lstMercaderiaSeleccionada.Items)
-            {
-                string mercaderia = item.SubItems[0].Text;
-                string cantidad = item.SubItems[1].Text;
-                string cliente = item.SubItems[2].Text;
-                numeroOrden++; // Incrementa el número de orden
-                string numeroOrdenFormato = numeroOrden.ToString("000000");
-                ordenesSeleccionadas.Add(
-                    new OrdenDePreparacionEntidad() {
-                        NroOrden = numeroOrden.ToString(),
-                        Mercaderia = mercaderia,
-                        Cantidad = cantidad,
-                        Cliente = cliente 
-                    });
-            }
-
-            if (ordenesSeleccionadas.Count > 0)
-            {
-                // Crear un mensaje de confirmación
-                string mensajeConfirmacion = "¿Estás seguro de generar la orden con los siguientes datos?\n\n";
-                foreach (var datos in ordenesSeleccionadas)
-                {
-                    mensajeConfirmacion += $"Mercadería: {datos.Mercaderia}, Cantidad: {datos.Cantidad}, Cliente: {datos.Cliente}\n";
-                }
-
-                // Mostrar el cuadro de diálogo de confirmación
-                DialogResult resultado = MessageBox.Show(mensajeConfirmacion, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                // Si el usuario confirma
-                if (resultado == DialogResult.Yes)
-                {
-                    // Procesar las órdenes 
-                    // Llamar al modelo
-
-                    // Eliminar los elementos seleccionados del ListView
-                    for (int i = lstMercaderiaSeleccionada.SelectedIndices.Count - 1; i >= 0; i--)
-                    {
-                        lstMercaderiaSeleccionada.Items.RemoveAt(lstMercaderiaSeleccionada.SelectedIndices[i]);
-                    }
-
-                    MessageBox.Show("Se ha generado la orden con éxito");
-                }
-                else
-                {
-                    // El usuario canceló la operación
-                    MessageBox.Show("Operación cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-           
-            }
-            else
-            {
-                MessageBox.Show("Por favor, seleccione al menos un elemento.");
-            }
+            else MessageBox.Show("Por favor, seleccione un elemento en la lista de mercaderías.");
         }
         private void btnBorrar_Click(object sender, EventArgs e)
         {
-            // Verificar si hay un elemento seleccionado
-            if (lstMercaderiaSeleccionada.SelectedItems.Count > 0)
+            if (lstMercaderiaSeleccionada.CheckedItems.Count > 0)
             {
-                // Eliminar el elemento seleccionado
-                lstMercaderiaSeleccionada.Items.Remove(lstMercaderiaSeleccionada.SelectedItems[0]);
+                for (int i = 0; i < lstMercaderiaSeleccionada.CheckedItems.Count; i++)
+                {
+                    lstMercaderiaSeleccionada.Items.Remove(lstMercaderiaSeleccionada.CheckedItems[i]);
+                }
             }
-            else
+            else MessageBox.Show("Por favor, seleccione un elemento para borrar.");
+        }
+        private void btnGenerar_Click(object sender, EventArgs e)
+        {
+            OrdenDePreparacionEntidad orden = new ();
+            if (lstMercaderiaSeleccionada.Items.Count > 0)
             {
-                // Mostrar un mensaje si no hay ningún elemento seleccionado
-                MessageBox.Show("Por favor, seleccione un elemento para borrar.");
+                List<MercaderiaEntidad> mercaderias = new();
+                string mensajeConfirmacion = "¿Estás seguro de generar la orden con los siguientes datos?\n\n";
+                for (int i = 0; i < lstMercaderiaSeleccionada.Items.Count; i++)
+                {
+                    var mercaderiaSelected = lstMercaderiaSeleccionada.Items[i].SubItems;
+                    MercaderiaEntidad mercaderia = new ()
+                    {
+                        Id = int.Parse(mercaderiaSelected[0].Text),
+                        Descripcion = mercaderiaSelected[1].Text,
+                        Cantidad = int.Parse(mercaderiaSelected[2].Text),
+                        NumeroCliente = _cliente.NumeroCliente
+                    };
+                    mercaderias.Add(mercaderia);
+                    mensajeConfirmacion += $"Mercadería: {mercaderia.Descripcion}, Cantidad: {mercaderia.Cantidad}\n";
+                }
+
+                DialogResult resultado = 
+                    MessageBox.Show(mensajeConfirmacion, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    orden.Mercaderias = mercaderias;
+                    string error = _modelo.Crear(orden);
+
+                    if (string.IsNullOrEmpty(error))
+                    {
+                        lstMercaderiaSeleccionada.Items.Clear();
+                        ActualizarMercaderiasDisponibles(orden.Mercaderias);
+                        MessageBox.Show("Se ha generado la orden con éxito.");
+                    }
+                    else MessageBox.Show(error);
+                }
+                else
+                    MessageBox.Show("Operación cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else MessageBox.Show("Por favor, seleccione al menos un elemento.");
+        }
+        private void LoadCliente()
+        {
+            lblNroCliente.Text = $"{_cliente.Nombre.ToString().ToUpper()}, {_cliente.Apellido.ToString().ToUpper()}";
+            listMercaderias.Items.Clear();
+            listMercaderias.Items.AddRange(GetMercaderiaItems(_cliente.Mercaderias));
+        }
+        private void ActualizarMercaderiasDisponibles(List<MercaderiaEntidad> mercaderias)
+        {
+            foreach (MercaderiaEntidad m in mercaderias)
+            {
+                _cliente.Mercaderias.ForEach(item =>
+                {
+                    if (m.Id == item.Id)
+                        item.Cantidad -= m.Cantidad;
+                });
+            }
+
+            _cliente.Mercaderias.RemoveAll(m => m.Cantidad == 0);
+            LoadCliente();
+        }
+        private static ListViewItem[] GetMercaderiaItems(List<MercaderiaEntidad> mercaderias)
+        {
+            List<ListViewItem> viewItems = new();
+            foreach (var mercaderia in mercaderias)
+            {
+                ListViewItem item = new(mercaderia.Id.ToString());
+                item.SubItems.Add(mercaderia.Descripcion);
+                item.SubItems.Add(mercaderia.Cantidad.ToString());
+                viewItems.Add(item);
+            }
+            return viewItems.ToArray();
         }
     }
 }

@@ -29,30 +29,28 @@ namespace GrupoD.Prototipos.TP3
         /// </summary>
         private void InitializeComponent()
         {
-            var listViewItem1 = new ListViewItem(new string[] { "MERCADERIA1", "25", "1001" }, -1);
-            var listViewItem2 = new ListViewItem(new string[] { "MERCADERIA2", "33", "1002" }, -1);
-            var listViewItem3 = new ListViewItem(new string[] { "MERCADERIA4", "23", "1005" }, -1);
-            var listViewItem4 = new ListViewItem(new string[] { "MERCADERIA5", "77", "1003" }, -1);
-            var listViewItem5 = new ListViewItem(new string[] { "MERCADERIA6", "50", "1002" }, -1);
             btnAgregar = new Button();
             btnGenerar = new Button();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             lstMercaderiaSeleccionada = new ListView();
-            columnMercaderia = new ColumnHeader();
-            columnCantidad = new ColumnHeader();
-            columnCliente = new ColumnHeader();
-            lstMercaderiaOP = new ListBox();
+            idSelected = new ColumnHeader();
+            mercaderiaSelected = new ColumnHeader();
+            cantidadSelected = new ColumnHeader();
             txtCantidad = new TextBox();
             lblusuario = new Label();
             lblNroCliente = new Label();
+            listMercaderias = new ListView();
+            id = new ColumnHeader();
+            mercaderia = new ColumnHeader();
+            cantidad = new ColumnHeader();
             btnBorrar = new Button();
             SuspendLayout();
             // 
             // btnAgregar
             // 
-            btnAgregar.Location = new Point(344, 146);
+            btnAgregar.Location = new Point(288, 230);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(75, 23);
             btnAgregar.TabIndex = 0;
@@ -62,9 +60,9 @@ namespace GrupoD.Prototipos.TP3
             // 
             // btnGenerar
             // 
-            btnGenerar.Location = new Point(12, 366);
+            btnGenerar.Location = new Point(12, 496);
             btnGenerar.Name = "btnGenerar";
-            btnGenerar.Size = new Size(217, 23);
+            btnGenerar.Size = new Size(225, 23);
             btnGenerar.TabIndex = 1;
             btnGenerar.Text = "GENERAR";
             btnGenerar.UseVisualStyleBackColor = true;
@@ -73,16 +71,16 @@ namespace GrupoD.Prototipos.TP3
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 52);
+            label1.Location = new Point(12, 46);
             label1.Name = "label1";
-            label1.Size = new Size(79, 15);
+            label1.Size = new Size(166, 15);
             label1.TabIndex = 2;
-            label1.Text = "MERCADERIA";
+            label1.Text = "MERCADERIA EN INVENTARIO";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(344, 52);
+            label2.Location = new Point(136, 234);
             label2.Name = "label2";
             label2.Size = new Size(65, 15);
             label2.TabIndex = 3;
@@ -91,53 +89,42 @@ namespace GrupoD.Prototipos.TP3
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(11, 187);
+            label3.Location = new Point(12, 273);
             label3.Name = "label3";
-            label3.Size = new Size(167, 15);
+            label3.Size = new Size(225, 15);
             label3.TabIndex = 4;
-            label3.Text = "MERCADERIA SELECCIONADA";
+            label3.Text = "MERCADERIA SELECCIONADA A RETIRAR";
             // 
             // lstMercaderiaSeleccionada
             // 
             lstMercaderiaSeleccionada.AutoArrange = false;
-            lstMercaderiaSeleccionada.Columns.AddRange(new ColumnHeader[] { columnMercaderia, columnCantidad, columnCliente });
-            lstMercaderiaSeleccionada.Items.AddRange(new ListViewItem[] { listViewItem1, listViewItem2, listViewItem3, listViewItem4, listViewItem5 });
-            lstMercaderiaSeleccionada.Location = new Point(11, 205);
+            lstMercaderiaSeleccionada.CheckBoxes = true;
+            lstMercaderiaSeleccionada.Columns.AddRange(new ColumnHeader[] { idSelected, mercaderiaSelected, cantidadSelected });
+            lstMercaderiaSeleccionada.Location = new Point(12, 291);
             lstMercaderiaSeleccionada.Name = "lstMercaderiaSeleccionada";
-            lstMercaderiaSeleccionada.Size = new Size(411, 155);
+            lstMercaderiaSeleccionada.Size = new Size(351, 186);
             lstMercaderiaSeleccionada.TabIndex = 5;
             lstMercaderiaSeleccionada.UseCompatibleStateImageBehavior = false;
             lstMercaderiaSeleccionada.View = View.Details;
             // 
-            // columnMercaderia
+            // idSelected
             // 
-            columnMercaderia.Text = "MERCADERIA";
-            columnMercaderia.Width = 260;
+            idSelected.Text = "ID";
             // 
-            // columnCantidad
+            // mercaderiaSelected
             // 
-            columnCantidad.Text = "CANTIDAD";
-            columnCantidad.TextAlign = HorizontalAlignment.Center;
-            columnCantidad.Width = 80;
+            mercaderiaSelected.Text = "MERCADERIA";
+            mercaderiaSelected.Width = 200;
             // 
-            // columnCliente
+            // cantidadSelected
             // 
-            columnCliente.Text = "CLIENTE";
-            columnCliente.TextAlign = HorizontalAlignment.Center;
-            // 
-            // lstMercaderiaOP
-            // 
-            lstMercaderiaOP.FormattingEnabled = true;
-            lstMercaderiaOP.ItemHeight = 15;
-            lstMercaderiaOP.Items.AddRange(new object[] { "MERCADERIA1", "MERCADERIA2", "MERCADERIA3", "MERCADERIA4", "MERCADERIA5", "MERCADERIA6", "MERCADERIA7", "MERCADERIA8", "MERCADERIA9", "MERCADERIA10" });
-            lstMercaderiaOP.Location = new Point(12, 75);
-            lstMercaderiaOP.Name = "lstMercaderiaOP";
-            lstMercaderiaOP.Size = new Size(326, 94);
-            lstMercaderiaOP.TabIndex = 6;
+            cantidadSelected.Text = "CANTIDAD";
+            cantidadSelected.TextAlign = HorizontalAlignment.Center;
+            cantidadSelected.Width = 80;
             // 
             // txtCantidad
             // 
-            txtCantidad.Location = new Point(344, 79);
+            txtCantidad.Location = new Point(207, 230);
             txtCantidad.Name = "txtCantidad";
             txtCantidad.Size = new Size(75, 23);
             txtCantidad.TabIndex = 7;
@@ -154,39 +141,66 @@ namespace GrupoD.Prototipos.TP3
             // lblNroCliente
             // 
             lblNroCliente.AutoSize = true;
-            lblNroCliente.Location = new Point(16, 16);
+            lblNroCliente.Location = new Point(12, 16);
             lblNroCliente.Name = "lblNroCliente";
-            lblNroCliente.Size = new Size(79, 15);
+            lblNroCliente.Size = new Size(51, 15);
             lblNroCliente.TabIndex = 9;
-            lblNroCliente.Text = "NRO CLIENTE";
+            lblNroCliente.Text = "CLIENTE";
+            // 
+            // listMercaderias
+            // 
+            listMercaderias.AutoArrange = false;
+            listMercaderias.CheckBoxes = true;
+            listMercaderias.Columns.AddRange(new ColumnHeader[] { id, mercaderia, cantidad });
+            listMercaderias.Location = new Point(12, 64);
+            listMercaderias.Name = "listMercaderias";
+            listMercaderias.Size = new Size(351, 160);
+            listMercaderias.TabIndex = 11;
+            listMercaderias.UseCompatibleStateImageBehavior = false;
+            listMercaderias.View = View.Details;
+            // 
+            // id
+            // 
+            id.Text = "ID";
+            // 
+            // mercaderia
+            // 
+            mercaderia.Text = "MERCADERIA";
+            mercaderia.Width = 200;
+            // 
+            // cantidad
+            // 
+            cantidad.Text = "CANTIDAD";
+            cantidad.TextAlign = HorizontalAlignment.Center;
+            cantidad.Width = 80;
             // 
             // btnBorrar
             // 
-            btnBorrar.Location = new Point(246, 366);
+            btnBorrar.Location = new Point(243, 496);
             btnBorrar.Name = "btnBorrar";
-            btnBorrar.Size = new Size(146, 23);
-            btnBorrar.TabIndex = 10;
+            btnBorrar.Size = new Size(120, 23);
+            btnBorrar.TabIndex = 15;
             btnBorrar.Text = "BORRAR";
             btnBorrar.UseVisualStyleBackColor = true;
             btnBorrar.Click += btnBorrar_Click;
             // 
-            // Orden_de_Preparacion
+            // OrdenDePreparacionForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(446, 405);
+            ClientSize = new Size(400, 542);
             Controls.Add(btnBorrar);
+            Controls.Add(listMercaderias);
             Controls.Add(lblNroCliente);
             Controls.Add(lblusuario);
             Controls.Add(txtCantidad);
-            Controls.Add(lstMercaderiaOP);
             Controls.Add(lstMercaderiaSeleccionada);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnGenerar);
             Controls.Add(btnAgregar);
-            Name = "Orden_de_Preparacion";
+            Name = "OrdenDePreparacionForm";
             Text = "Orden de Preparacion";
             ResumeLayout(false);
             PerformLayout();
@@ -205,13 +219,16 @@ namespace GrupoD.Prototipos.TP3
         private Label label2;
         private Label label3;
         private ListView lstMercaderiaSeleccionada;
-        private ListBox lstMercaderiaOP;
         private TextBox txtCantidad;
-        private ColumnHeader columnMercaderia;
-        private ColumnHeader columnCantidad;
+        private ColumnHeader mercaderiaSelected;
+        private ColumnHeader cantidadSelected;
         private Label lblusuario;
         private Label lblNroCliente;
-        private ColumnHeader columnCliente;
+        private ListView listMercaderias;
+        private ColumnHeader mercaderia;
+        private ColumnHeader cantidad;
+        private ColumnHeader id;
+        private ColumnHeader idSelected;
         private Button btnBorrar;
     }
 }

@@ -9,7 +9,6 @@ namespace GrupoD.Prototipos.TP3.InicioSesion
         public InicioSesionForm()
         {
             InitializeComponent();
-
         }
 
         private void InicioSesion_Load(object sender, EventArgs e)
@@ -20,7 +19,7 @@ namespace GrupoD.Prototipos.TP3.InicioSesion
         // Lista de client
         /// <summary>
         /// si es un cliente quien inicia sesion se va a abrir la pantalla de Orden de preparacion
-        /// si es un empleado quien inicia sesion se abre directamente la pantalla Orden de seleecion.
+        /// si es un empleado quien inicia sesion se abre el menú de inicio.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -43,12 +42,11 @@ namespace GrupoD.Prototipos.TP3.InicioSesion
                 {
                     MessageBox.Show("Inicio de sesión exitoso como cliente: " + cliente.Nombre + " " + cliente.Apellido);
 
-                    OrdenDePreparacionForm formOrdenPreparacion = new (cliente.Nombre, cliente.Apellido);
+                    OrdenDePreparacionForm formOrdenPreparacion = new (cliente);
                     formOrdenPreparacion.ShowDialog();
                     return;
                 }
             }
-
             else if (tipoUsuario == "EMPLEADO")
             {
                 // Verificar si se trata de un empleado
@@ -64,7 +62,5 @@ namespace GrupoD.Prototipos.TP3.InicioSesion
             // Si no se encuentra ningún usuario con las credenciales proporcionadas
             MessageBox.Show("Inicio de sesión fallido. Usuario, Tipo de usuario o contraseña incorrectos.");
         }
-
-
     }
 }

@@ -39,9 +39,9 @@
             // 
             // btnInicioSesion
             // 
-            btnInicioSesion.Location = new Point(142, 158);
+            btnInicioSesion.Location = new Point(131, 235);
             btnInicioSesion.Name = "btnInicioSesion";
-            btnInicioSesion.Size = new Size(161, 23);
+            btnInicioSesion.Size = new Size(151, 23);
             btnInicioSesion.TabIndex = 0;
             btnInicioSesion.Text = "INICIAR SESIÓN";
             btnInicioSesion.UseVisualStyleBackColor = true;
@@ -50,7 +50,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(28, 24);
+            label1.Location = new Point(116, 97);
             label1.Name = "label1";
             label1.Size = new Size(56, 15);
             label1.TabIndex = 1;
@@ -59,7 +59,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(30, 92);
+            label2.Location = new Point(118, 165);
             label2.Name = "label2";
             label2.Size = new Size(83, 15);
             label2.TabIndex = 2;
@@ -67,15 +67,16 @@
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(28, 42);
+            txtUsuario.Location = new Point(116, 115);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(182, 23);
             txtUsuario.TabIndex = 3;
             // 
             // txtContraseña
             // 
-            txtContraseña.Location = new Point(28, 110);
+            txtContraseña.Location = new Point(116, 183);
             txtContraseña.Name = "txtContraseña";
+            txtContraseña.PasswordChar = '*';
             txtContraseña.Size = new Size(182, 23);
             txtContraseña.TabIndex = 4;
             // 
@@ -84,7 +85,7 @@
             lstTipoUsuario.FormattingEnabled = true;
             lstTipoUsuario.ItemHeight = 15;
             lstTipoUsuario.Items.AddRange(new object[] { "CLIENTE", "EMPLEADO" });
-            lstTipoUsuario.Location = new Point(258, 46);
+            lstTipoUsuario.Location = new Point(118, 58);
             lstTipoUsuario.Name = "lstTipoUsuario";
             lstTipoUsuario.Size = new Size(120, 19);
             lstTipoUsuario.TabIndex = 5;
@@ -92,17 +93,17 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(258, 24);
+            label3.Location = new Point(118, 36);
             label3.Name = "label3";
             label3.Size = new Size(84, 15);
             label3.TabIndex = 6;
             label3.Text = "TIPO USUARIO";
             // 
-            // InicioSesion
+            // InicioSesionForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(416, 202);
+            ClientSize = new Size(416, 299);
             Controls.Add(label3);
             Controls.Add(lstTipoUsuario);
             Controls.Add(txtContraseña);
@@ -110,7 +111,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(btnInicioSesion);
-            Name = "InicioSesion";
+            Name = "InicioSesionForm";
             Text = "INICIO SESIÓN";
             Load += InicioSesion_Load;
             ResumeLayout(false);
