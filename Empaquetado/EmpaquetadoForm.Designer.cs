@@ -28,82 +28,74 @@
         /// </summary>
         private void InitializeComponent()
         {
-            listView1 = new ListView();
+            listOrdenesSeleccion = new ListView();
             columnNroOrdenEmpaquetar = new ColumnHeader();
-            columnDatalleEmpaquetar = new ColumnHeader();
             columnClienteEmpaquetar = new ColumnHeader();
-            button1 = new Button();
+            buttonConfirmarEmpaquetado = new Button();
             label1 = new Label();
             SuspendLayout();
             // 
-            // listView1
+            // listOrdenesSeleccion
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnNroOrdenEmpaquetar, columnDatalleEmpaquetar, columnClienteEmpaquetar });
-            listView1.Location = new Point(22, 37);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(535, 317);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Details;
+            listOrdenesSeleccion.Columns.AddRange(new ColumnHeader[] { columnNroOrdenEmpaquetar, columnClienteEmpaquetar });
+            listOrdenesSeleccion.FullRowSelect = true;
+            listOrdenesSeleccion.Location = new Point(22, 37);
+            listOrdenesSeleccion.Name = "listOrdenesSeleccion";
+            listOrdenesSeleccion.Size = new Size(267, 317);
+            listOrdenesSeleccion.TabIndex = 0;
+            listOrdenesSeleccion.UseCompatibleStateImageBehavior = false;
+            listOrdenesSeleccion.View = View.Details;
+            listOrdenesSeleccion.MouseDoubleClick += VerDetalleOrden;
             // 
             // columnNroOrdenEmpaquetar
             // 
             columnNroOrdenEmpaquetar.Text = "NRO. ORDEN";
             columnNroOrdenEmpaquetar.Width = 100;
             // 
-            // columnDatalleEmpaquetar
-            // 
-            columnDatalleEmpaquetar.Text = "DETALLE";
-            columnDatalleEmpaquetar.TextAlign = HorizontalAlignment.Center;
-            columnDatalleEmpaquetar.Width = 350;
-            // 
             // columnClienteEmpaquetar
             // 
             columnClienteEmpaquetar.Text = "CLIENTE";
             columnClienteEmpaquetar.Width = 80;
             // 
-            // button1
+            // buttonConfirmarEmpaquetado
             // 
-            button1.Location = new Point(180, 360);
-            button1.Name = "button1";
-            button1.Size = new Size(223, 23);
-            button1.TabIndex = 1;
-            button1.Text = "CONFIRMAR ";
-            button1.UseVisualStyleBackColor = true;
+            buttonConfirmarEmpaquetado.Location = new Point(22, 367);
+            buttonConfirmarEmpaquetado.Name = "buttonConfirmarEmpaquetado";
+            buttonConfirmarEmpaquetado.Size = new Size(267, 23);
+            buttonConfirmarEmpaquetado.TabIndex = 1;
+            buttonConfirmarEmpaquetado.Text = "CONFIRMAR EMPAQUETADO PARA DESPACHO";
+            buttonConfirmarEmpaquetado.UseVisualStyleBackColor = true;
+            buttonConfirmarEmpaquetado.Click += EmpaquetarParaDespacho;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(23, 11);
+            label1.Location = new Point(22, 9);
             label1.Name = "label1";
-            label1.Size = new Size(146, 15);
+            label1.Size = new Size(248, 15);
             label1.TabIndex = 2;
-            label1.Text = "ORDENES A EMPAQUETAR";
+            label1.Text = "ORDENES DE SELECCIÓN PARA EMPAQUETAR";
             // 
-            // Empaquetado
+            // EmpaquetadoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(563, 393);
+            ClientSize = new Size(319, 402);
             Controls.Add(label1);
-            Controls.Add(button1);
-            Controls.Add(listView1);
-            Name = "Empaquetado";
+            Controls.Add(buttonConfirmarEmpaquetado);
+            Controls.Add(listOrdenesSeleccion);
+            Name = "EmpaquetadoForm";
             Text = "Empaquetado";
-            Load += Empaquetado_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private ListView listView1;
-        private Button button1;
+        private ListView listOrdenesSeleccion;
+        private Button buttonConfirmarEmpaquetado;
         private Label label1;
         private ColumnHeader columnNroOrdenEmpaquetar;
-        private ColumnHeader columnDatalleEmpaquetar;
         private ColumnHeader columnClienteEmpaquetar;
-        
-
     }
 }

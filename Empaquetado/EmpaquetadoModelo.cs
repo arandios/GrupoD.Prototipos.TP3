@@ -1,11 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GrupoD.Prototipos.TP3.Entidades;
+using GrupoD.Prototipos.TP3.Estados;
 
 namespace GrupoD.Prototipos.TP3.Empaquetado;
-internal class EmpaquetadoModelo
+public class EmpaquetadoModelo
 {
+    private List<OrdenDeSeleccionEntidad> _ordenesDeSeleccion;
+    public EmpaquetadoModelo()
+    {
+        _ordenesDeSeleccion = new List<OrdenDeSeleccionEntidad>()
+            {
+                new ()
+                {
+                    Numero = 1,
+                    Cliente = 1001,
+                    Estado = OrdenDeSeleccionEstado.PRIORIZADA,
+                    MercaderiasPriorizadas = new List<MercaderiaEntidad>
+                    {
+                        new () { Id = 1, Descripcion = "Bolsa de cemento 50kg", Cantidad = 3 , NumeroCliente = 1001 },
+                        new () { Id = 2, Descripcion = "Cajas de cerámica", Cantidad = 10 , NumeroCliente = 1001 },
+                        new () { Id = 3, Descripcion = "Bolsas de arena 10kg", Cantidad = 10, NumeroCliente = 1001 },
+                        new () { Id = 4, Descripcion = "Klaukol 10kg", Cantidad = 2, NumeroCliente = 1001 },
+                    }
+                },
+                new ()
+                {
+                    Numero = 2,
+                    Cliente = 1002,
+                    Estado = OrdenDeSeleccionEstado.PRIORIZADA,
+                    MercaderiasPriorizadas = new List<MercaderiaEntidad>
+                    {
+                        new () { Id = 5, Descripcion = "Palets de madera", Cantidad = 5, NumeroCliente = 1002 },
+                        new () { Id = 6, Descripcion = "Ladrillos", Cantidad = 300, NumeroCliente = 1002 },
+                    }
+                },
+                new ()
+                {
+                    Numero = 3,
+                    Cliente = 1003,
+                    Estado = OrdenDeSeleccionEstado.PRIORIZADA,
+                    MercaderiasPriorizadas = new List<MercaderiaEntidad>
+                    {
+                        new () { Id = 7, Descripcion = "Tubos de PVC", Cantidad = 20, NumeroCliente = 1003 },
+                        new () { Id = 8, Descripcion = "Cemento cola", Cantidad = 30, NumeroCliente = 1003 },
+                    }
+                }
+            };
+    }
 
+    public List<OrdenDeSeleccionEntidad> ObtenerOrdenesPriorizadas()
+    {
+        return _ordenesDeSeleccion
+            .FindAll(os => os.Estado == OrdenDeSeleccionEstado.PRIORIZADA);
+    }
+
+    public string EmpaquetarOrdenes(List<int> ordenesDeSeleccion)
+    {
+        string error = string.Empty;
+        _ordenesDeSeleccion.ForEach(os =>
+        {
+            if (ordenesDeSeleccion.Contains(os.Numero))
+                os.Estado = OrdenDeSeleccionEstado.EMPAQUETADA;
+        });
+
+        return error;
+    }
 }
