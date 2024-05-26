@@ -28,104 +28,73 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lstOrdenDePreparacionParaDespachar = new ListBox();
             label1 = new Label();
-            btnSeleccionarOrden = new Button();
-            lstvOrdenListaSeleccionada = new ListView();
-            columnNumeroOrdenPreparada = new ColumnHeader();
-            columnDetalleOrdenLista = new ColumnHeader();
-            columnCliente = new ColumnHeader();
+            listOrdenesParaDespacho = new ListView();
+            numeroOrden = new ColumnHeader();
+            numeroCliente = new ColumnHeader();
             btnConfirmarDespacho = new Button();
             SuspendLayout();
-            // 
-            // lstOrdenDePreparacionParaDespachar
-            // 
-            lstOrdenDePreparacionParaDespachar.FormattingEnabled = true;
-            lstOrdenDePreparacionParaDespachar.ItemHeight = 15;
-            lstOrdenDePreparacionParaDespachar.Location = new Point(37, 47);
-            lstOrdenDePreparacionParaDespachar.Name = "lstOrdenDePreparacionParaDespachar";
-            lstOrdenDePreparacionParaDespachar.Size = new Size(221, 34);
-            lstOrdenDePreparacionParaDespachar.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(37, 29);
+            label1.Location = new Point(30, 9);
             label1.Name = "label1";
-            label1.Size = new Size(106, 15);
+            label1.Size = new Size(257, 15);
             label1.TabIndex = 1;
-            label1.Text = "LISTA DE ORDENES";
+            label1.Text = "ORDENES DE PREPARACIÓN PARA DESPACHAR";
             // 
-            // btnSeleccionarOrden
+            // listOrdenesParaDespacho
             // 
-            btnSeleccionarOrden.Location = new Point(274, 50);
-            btnSeleccionarOrden.Name = "btnSeleccionarOrden";
-            btnSeleccionarOrden.Size = new Size(111, 23);
-            btnSeleccionarOrden.TabIndex = 2;
-            btnSeleccionarOrden.Text = "SELECCIONAR";
-            btnSeleccionarOrden.UseVisualStyleBackColor = true;
+            listOrdenesParaDespacho.Columns.AddRange(new ColumnHeader[] { numeroOrden, numeroCliente });
+            listOrdenesParaDespacho.FullRowSelect = true;
+            listOrdenesParaDespacho.Location = new Point(30, 39);
+            listOrdenesParaDespacho.Name = "listOrdenesParaDespacho";
+            listOrdenesParaDespacho.Size = new Size(251, 332);
+            listOrdenesParaDespacho.TabIndex = 3;
+            listOrdenesParaDespacho.UseCompatibleStateImageBehavior = false;
+            listOrdenesParaDespacho.View = View.Details;
+            listOrdenesParaDespacho.MouseDoubleClick += VerDetalleOrden;
             // 
-            // lstvOrdenListaSeleccionada
+            // numeroOrden
             // 
-            lstvOrdenListaSeleccionada.Columns.AddRange(new ColumnHeader[] { columnNumeroOrdenPreparada, columnDetalleOrdenLista, columnCliente });
-            lstvOrdenListaSeleccionada.Location = new Point(37, 98);
-            lstvOrdenListaSeleccionada.Name = "lstvOrdenListaSeleccionada";
-            lstvOrdenListaSeleccionada.Size = new Size(506, 274);
-            lstvOrdenListaSeleccionada.TabIndex = 3;
-            lstvOrdenListaSeleccionada.UseCompatibleStateImageBehavior = false;
-            lstvOrdenListaSeleccionada.View = View.Details;
+            numeroOrden.Text = "NUMERO ORDEN";
+            numeroOrden.Width = 120;
             // 
-            // columnNumeroOrdenPreparada
+            // numeroCliente
             // 
-            columnNumeroOrdenPreparada.Text = "NUMERO ORDEN";
-            columnNumeroOrdenPreparada.Width = 120;
-            // 
-            // columnDetalleOrdenLista
-            // 
-            columnDetalleOrdenLista.Text = "DETALLE";
-            columnDetalleOrdenLista.TextAlign = HorizontalAlignment.Center;
-            columnDetalleOrdenLista.Width = 300;
-            // 
-            // columnCliente
-            // 
-            columnCliente.Text = "CLIENTE";
-            columnCliente.Width = 80;
+            numeroCliente.Text = "CLIENTE";
+            numeroCliente.Width = 80;
             // 
             // btnConfirmarDespacho
             // 
-            btnConfirmarDespacho.Location = new Point(220, 388);
+            btnConfirmarDespacho.Location = new Point(30, 377);
             btnConfirmarDespacho.Name = "btnConfirmarDespacho";
-            btnConfirmarDespacho.Size = new Size(123, 23);
+            btnConfirmarDespacho.Size = new Size(251, 23);
             btnConfirmarDespacho.TabIndex = 4;
-            btnConfirmarDespacho.Text = "CONFIRMAR";
+            btnConfirmarDespacho.Text = "CONFIRMAR DESPACHO";
             btnConfirmarDespacho.UseVisualStyleBackColor = true;
+            btnConfirmarDespacho.Click += Despachar;
             // 
             // DespachoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(561, 427);
+            ClientSize = new Size(315, 412);
             Controls.Add(btnConfirmarDespacho);
-            Controls.Add(lstvOrdenListaSeleccionada);
-            Controls.Add(btnSeleccionarOrden);
+            Controls.Add(listOrdenesParaDespacho);
             Controls.Add(label1);
-            Controls.Add(lstOrdenDePreparacionParaDespachar);
             Name = "DespachoForm";
-            Text = "DespachoForm";
-            Load += DespachoForm_Load;
+            Text = "Despachar órdenes";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private ListBox lstOrdenDePreparacionParaDespachar;
         private Label label1;
-        private Button btnSeleccionarOrden;
-        private ListView lstvOrdenListaSeleccionada;
-        private ColumnHeader columnNumeroOrdenPreparada;
-        private ColumnHeader columnDetalleOrdenLista;
-        private ColumnHeader columnCliente;
+        private ListView listOrdenesParaDespacho;
+        private ColumnHeader numeroOrden;
+        private ColumnHeader numeroCliente;
         private Button btnConfirmarDespacho;
     }
 }
