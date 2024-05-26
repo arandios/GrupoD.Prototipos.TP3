@@ -1,88 +1,165 @@
 ﻿using GrupoD.Prototipos.TP3.Entidades;
 using GrupoD.Prototipos.TP3.OrdenDeSeleccion;
 
-
 namespace GrupoD.Prototipos.TP3
 {
     public partial class OrdenDeSeleccionForm : Form
     {
         // Variables de clase
         private int numeroOrden = 0; // Número de orden actual
+        private int numeroCliente = 0; // Número de cliente actual
         private OrdenDeSeleccionModelo _modelo;
-        private List<OrdenDeSeleccionEntidad> listaOrdenes = new List<OrdenDeSeleccionEntidad>(); // Lista de órdenes
-
-        //Inicio cuando ingresa el empleado
+        private List<OrdenDePreparacionEntidad> _ordenesPendientes;
+        //private List<OrdenDeSeleccionEntidad> listaOrdenes = new List<OrdenDeSeleccionEntidad>(); // Lista de órdenes
         public OrdenDeSeleccionForm()
         {
             InitializeComponent();
             _modelo = new();
-            LimpiarListView(); // Limpia el ListView
+            LoadOrdenesPendientes();
         }
 
-        // Limpia el ListView
-
-        private void LimpiarListView()
+        private void LoadOrdenesPendientes()
         {
-            lstOrdenes.Items.Clear();
+            _ordenesPendientes = _ordenesPendientes ?? _modelo.ObtenerOrdenesPendientes();
+            lstOrdenes.Items.AddRange(ObtenerOrdenesPendientesItems(_ordenesPendientes));
         }
 
-        /// <summary>
-        /// guarda datos que el cliente seleccionó en la pantalla orden de preparacion
-        /// </summary>
-        /// <param name="datosSeleccionados"></param>
-        public void GuardarOrdenesSeleccionadas(List<string[]> datosSeleccionados)
+        private static ListViewItem[] ObtenerOrdenesPendientesItems(List<OrdenDePreparacionEntidad> ordenes)
         {
-            List<OrdenDeSeleccionEntidad> nuevasOrdenes = new List<OrdenDeSeleccionEntidad>();
-
-            foreach (var datos in datosSeleccionados)
+            List<ListViewItem> viewItems = new();
+            foreach (var orden in ordenes)
             {
-                if (datos.Length >= 3) // Verificar si hay suficientes elementos en el array
+                ListViewItem item = new(orden.NroOrden.ToString());
+                item.SubItems.Add(orden.Cliente.ToString());
+                viewItems.Add(item);
+            }
+            return viewItems.ToArray();
+        }
+
+        private static ListViewItem[] ObtenerMercaderiaItems(List<MercaderiaEntidad> mercaderias)
+        {
+            List<ListViewItem> viewItems = new();
+            foreach (var mercaderia in mercaderias)
+            {
+                ListViewItem item = new(mercaderia.Descripcion);
+                item.SubItems.Add(mercaderia.Cantidad.ToString());
+                viewItems.Add(item);
+            }
+            return viewItems.ToArray();
+        }
+
+        private void lstOrdenes_SelectedOrden(object sender, EventArgs e)
+        {
+            int nroOrden = 0;
+            int nroCliente = 0;
+            if (lstOrdenes.SelectedItems.Count > 0)
+            {
+                nroOrden = int.Parse(lstOrdenes.SelectedItems[0].Text);
+                nroCliente = int.Parse(lstOrdenes.SelectedItems[0].SubItems[1].Text);
+            };
+
+            if (nroOrden != 0)
+            {
+                numeroOrden = nroOrden;
+                numeroCliente = nroCliente;
+                lstOrdenes.SelectedItems.Clear();
+                listPrioridad.Items.Clear();
+                var orden = _ordenesPendientes.Find(op => op.NroOrden == nroOrden);
+                var mercaderias = orden is null ? new List<MercaderiaEntidad>() : orden.Mercaderias;
+
+                listPrioridad.Items.AddRange(ObtenerMercaderiaItems(mercaderias));
+            }
+        }
+
+        private void ButtonSubir_Click(object sender, EventArgs e)
+        {
+            if (listPrioridad.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listPrioridad.SelectedItems[0];
+                int selectedIndex = selectedItem.Index;
+
+                if (selectedIndex > 0)
                 {
-                    numeroOrden++; // Incrementa el número de orden
-                    string numeroOrdenFormato = numeroOrden.ToString("000000");
-
-                    string mercaderia = datos[0]; // Mercadería seleccionada
-                    string cantidad = datos[1]; // Cantidad seleccionada
-                    string cliente = datos[2]; // Cliente seleccionado
-
-                    ListViewItem item = new ListViewItem(numeroOrdenFormato);
-                    item.SubItems.Add($"{mercaderia} ({cantidad})"); // Agrega mercadería y cantidad como un solo subelemento
-                    item.SubItems.Add(cliente); // Agrega el cliente
-                    lstOrdenes.Items.Add(item); // Agrega el ListViewItem al ListView
-
-                    OrdenDeSeleccionEntidad nuevaOrden = new OrdenDeSeleccionEntidad() {
-                        Numero = numeroOrdenFormato,
-                        Mercaderia = mercaderia,
-                        Cantidad = cantidad,
-                        Cliente = cliente };
-                    nuevasOrdenes.Add(nuevaOrden); // Agrega la nueva orden a la lista de órdenes
+                    listPrioridad.Items.RemoveAt(selectedIndex);
+                    listPrioridad.Items.Insert(selectedIndex - 1, selectedItem);
+                    listPrioridad.Focus();
+                    selectedItem.Selected = true;
                 }
             }
-
-            listaOrdenes.AddRange(nuevasOrdenes); // Agrega las nuevas órdenes a la lista de órdenes
         }
 
-        // guardar ordenes alternativo 
-        public void GuardarOrdenesSelec(List<OrdenDeSeleccionEntidad> nuevasOrdenes)
+        private void ButtonBajar_Click(object sender, EventArgs e)
         {
-            foreach (var nuevaOrden in nuevasOrdenes)
+            if (listPrioridad.SelectedItems.Count > 0)
             {
-                numeroOrden++; // Incrementa el número de orden
-                string numeroOrdenFormato = numeroOrden.ToString("000000");
-                ListViewItem item = new ListViewItem(nuevaOrden.Numero);
-                item.SubItems.Add($"{nuevaOrden.Mercaderia} ({nuevaOrden.Cantidad})");
-                item.SubItems.Add(nuevaOrden.Cliente);
-                lstOrdenes.Items.Add(item);
+                ListViewItem selectedItem = listPrioridad.SelectedItems[0];
+                int selectedIndex = selectedItem.Index;
+
+                if (selectedIndex < listPrioridad.Items.Count - 1)
+                {
+                    listPrioridad.Items.RemoveAt(selectedIndex);
+                    listPrioridad.Items.Insert(selectedIndex + 1, selectedItem);
+                    listPrioridad.Focus();
+                    selectedItem.Selected = true;
+                }
+            }
+        }
+
+        private void btnGenerar_Click(object sender, EventArgs e)
+        {
+            OrdenDeSeleccionEntidad orden = new();
+            if (numeroOrden != 0 && listPrioridad.Items.Count > 0)
+            {
+                List<MercaderiaEntidad> mercaderias = new();
+                string mensajeConfirmacion = "¿Estás seguro de generar la orden con las siguientes prioridades?\n\n";
+                for (int i = 0; i < listPrioridad.Items.Count; i++)
+                {
+                    var mercaderiaSelected = listPrioridad.Items[i].SubItems[0].Text;
+
+                    OrdenDePreparacionEntidad op = _ordenesPendientes.Find(op => op.NroOrden == numeroOrden);
+                    MercaderiaEntidad mercaderia = op.Mercaderias.Find(m => m.Descripcion == mercaderiaSelected);
+                    mercaderias.Add(mercaderia);
+                    mensajeConfirmacion += $"{i + 1}: {mercaderia.Descripcion}, Cantidad: {mercaderia.Cantidad}\n";
+                }
+
+                DialogResult resultado =
+                    MessageBox.Show(mensajeConfirmacion, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    orden.Cliente = numeroCliente;
+                    orden.NumeroOrdenPreparacion = numeroOrden;
+                    orden.MercaderiasPriorizadas = mercaderias;
+                    string error = _modelo.Crear(orden);
+
+                    if (string.IsNullOrEmpty(error))
+                    {
+                        listPrioridad.Items.Clear();
+                        ActualizarOrdenesPendientes(orden);
+                        MessageBox.Show("Se ha generado la orden con éxito.");
+                    }
+                    else MessageBox.Show(error);
+                }
+                else
+                    MessageBox.Show("Operación cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else MessageBox.Show("Por favor, seleccione al menos un elemento.");
+        }
+
+        private void ActualizarOrdenesPendientes(OrdenDeSeleccionEntidad orden)
+        {
+            OrdenDePreparacionEntidad preparacion = null;
+            foreach (OrdenDePreparacionEntidad op in _ordenesPendientes)
+            {
+                if (op.NroOrden == orden.NumeroOrdenPreparacion)
+                    preparacion = op;
             }
 
-            listaOrdenes.AddRange(nuevasOrdenes);
-        }
+            if (preparacion is not null)
+                _ordenesPendientes.Remove(preparacion);
 
-        // Evento del botón "Limpiar" que limpia el ListView
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            LimpiarListView();
+            lstOrdenes.Items.Clear();
+            LoadOrdenesPendientes();
         }
     }
-
 }

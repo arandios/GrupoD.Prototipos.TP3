@@ -1,10 +1,13 @@
-﻿namespace GrupoD.Prototipos.TP3.Entidades
+﻿using GrupoD.Prototipos.TP3.Estados;
+
+namespace GrupoD.Prototipos.TP3.Entidades
 {
     public class OrdenDeSeleccionEntidad
     {
-        public string Numero {  get; set; }
-        public string Mercaderia { get; set; }
-        public string Cantidad {  get; set; }
-        public string Cliente {  get; set; }
+        public int Numero {  get; set; }
+        public int Cliente {  get; set; }
+        public OrdenDeSeleccionEstado Estado {  get; set; } 
+        public int NumeroOrdenPreparacion {  get; set; }
+        public List<MercaderiaEntidad> MercaderiasPriorizadas { get; set; }
     }
 }

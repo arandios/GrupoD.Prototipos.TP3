@@ -30,34 +30,35 @@
         {
             lstOrdenes = new ListView();
             columnNumeroOrden = new ColumnHeader();
-            columnDetalle = new ColumnHeader();
             columnCliente = new ColumnHeader();
             label1 = new Label();
             btnGenerarOS = new Button();
-            btnLimpiar = new Button();
+            listPrioridad = new ListView();
+            mercaderia = new ColumnHeader();
+            label2 = new Label();
+            buttonSubir = new Button();
+            buttonBajar = new Button();
+            cantidad = new ColumnHeader();
             SuspendLayout();
             // 
             // lstOrdenes
             // 
             lstOrdenes.AutoArrange = false;
-            lstOrdenes.Columns.AddRange(new ColumnHeader[] { columnNumeroOrden, columnDetalle, columnCliente });
-            lstOrdenes.Location = new Point(12, 27);
+            lstOrdenes.Columns.AddRange(new ColumnHeader[] { columnNumeroOrden, columnCliente });
+            lstOrdenes.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            lstOrdenes.Location = new Point(12, 32);
+            lstOrdenes.MultiSelect = false;
             lstOrdenes.Name = "lstOrdenes";
-            lstOrdenes.Size = new Size(502, 256);
+            lstOrdenes.Size = new Size(225, 256);
             lstOrdenes.TabIndex = 0;
             lstOrdenes.UseCompatibleStateImageBehavior = false;
             lstOrdenes.View = View.Details;
+            lstOrdenes.MouseDoubleClick += lstOrdenes_SelectedOrden;
             // 
             // columnNumeroOrden
             // 
             columnNumeroOrden.Text = "NRO. DE ORDEN";
-            columnNumeroOrden.Width = 120;
-            // 
-            // columnDetalle
-            // 
-            columnDetalle.Text = "DETALLE";
-            columnDetalle.TextAlign = HorizontalAlignment.Center;
-            columnDetalle.Width = 300;
+            columnNumeroOrden.Width = 100;
             // 
             // columnCliente
             // 
@@ -67,42 +68,87 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 9);
+            label1.Location = new Point(12, 14);
             label1.Name = "label1";
-            label1.Size = new Size(127, 15);
+            label1.Size = new Size(225, 15);
             label1.TabIndex = 1;
-            label1.Text = "ORDENES PENDIENTES";
+            label1.Text = "ORDENES DE PREPARACIÓN PENDIENTES";
             // 
             // btnGenerarOS
             // 
-            btnGenerarOS.Location = new Point(12, 300);
+            btnGenerarOS.Location = new Point(12, 316);
             btnGenerarOS.Name = "btnGenerarOS";
-            btnGenerarOS.Size = new Size(224, 23);
+            btnGenerarOS.Size = new Size(475, 23);
             btnGenerarOS.TabIndex = 2;
-            btnGenerarOS.Text = "GENERAR ORDEN";
+            btnGenerarOS.Text = "GENERAR ORDEN DE SELECCIÓN";
             btnGenerarOS.UseVisualStyleBackColor = true;
+            btnGenerarOS.Click += btnGenerar_Click;
             // 
-            // btnLimpiar
+            // listPrioridad
             // 
-            btnLimpiar.Location = new Point(319, 302);
-            btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(143, 23);
-            btnLimpiar.TabIndex = 3;
-            btnLimpiar.Text = "LIMPIAR";
-            btnLimpiar.UseVisualStyleBackColor = true;
-            btnLimpiar.Click += btnLimpiar_Click;
+            listPrioridad.AllowDrop = true;
+            listPrioridad.AutoArrange = false;
+            listPrioridad.Columns.AddRange(new ColumnHeader[] { mercaderia, cantidad });
+            listPrioridad.HeaderStyle = ColumnHeaderStyle.None;
+            listPrioridad.Location = new Point(262, 32);
+            listPrioridad.Name = "listPrioridad";
+            listPrioridad.Size = new Size(225, 221);
+            listPrioridad.TabIndex = 3;
+            listPrioridad.UseCompatibleStateImageBehavior = false;
+            listPrioridad.View = View.Details;
             // 
-            // Orden de selección
+            // mercaderia
+            // 
+            mercaderia.Text = "MERCADERIA";
+            mercaderia.Width = 140;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(262, 14);
+            label2.Name = "label2";
+            label2.Size = new Size(148, 15);
+            label2.TabIndex = 4;
+            label2.Text = "PRIORIDAD DE SELECCIÓN";
+            // 
+            // buttonSubir
+            // 
+            buttonSubir.Location = new Point(262, 265);
+            buttonSubir.Name = "buttonSubir";
+            buttonSubir.Size = new Size(110, 23);
+            buttonSubir.TabIndex = 5;
+            buttonSubir.Text = "SUBIR";
+            buttonSubir.UseVisualStyleBackColor = true;
+            buttonSubir.Click += ButtonSubir_Click;
+            // 
+            // buttonBajar
+            // 
+            buttonBajar.Location = new Point(377, 265);
+            buttonBajar.Name = "buttonBajar";
+            buttonBajar.Size = new Size(110, 23);
+            buttonBajar.TabIndex = 6;
+            buttonBajar.Text = "BAJAR";
+            buttonBajar.UseVisualStyleBackColor = true;
+            buttonBajar.Click += ButtonBajar_Click;
+            // 
+            // cantidad
+            // 
+            cantidad.Text = "CANTIDAD";
+            // 
+            // OrdenDeSeleccionForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(526, 337);
-            Controls.Add(btnLimpiar);
+            ClientSize = new Size(512, 361);
+            Controls.Add(buttonBajar);
+            Controls.Add(buttonSubir);
+            Controls.Add(label2);
+            Controls.Add(listPrioridad);
             Controls.Add(btnGenerarOS);
             Controls.Add(label1);
             Controls.Add(lstOrdenes);
-            Name = "Orden de selección";
-            Text = "Orden de selección";
+            Name = "OrdenDeSeleccionForm";
+            Text = "Generar orden de selección";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -111,10 +157,14 @@
 
         private ListView lstOrdenes;
         private ColumnHeader columnNumeroOrden;
-        private ColumnHeader columnDetalle;
         private ColumnHeader columnCliente;
         private Label label1;
         private Button btnGenerarOS;
-        private Button btnLimpiar;
+        private ListView listPrioridad;
+        private ColumnHeader mercaderia;
+        private Label label2;
+        private Button buttonSubir;
+        private Button buttonBajar;
+        private ColumnHeader cantidad;
     }
 }
