@@ -16,18 +16,11 @@ namespace GrupoD.Prototipos.TP3.InicioSesion
             modelo = new InicioSesionModelo();
         }
 
-        // Lista de client
-        /// <summary>
-        /// si es un cliente quien inicia sesion se va a abrir la pantalla de Orden de preparacion
-        /// si es un empleado quien inicia sesion se abre el menú de inicio.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnInicioSesion_Click(object sender, EventArgs e)
         {
-            string usuario = txtUsuario.Text; // Obtener el usuario ingresado en el campo de texto de usuario
-            string contraseña = txtContraseña.Text; // Obtener la contraseña ingresada en el campo de texto de contraseña
-            string tipoUsuario = lstTipoUsuario.SelectedItem?.ToString(); // Obtener el tipo de usuario seleccionado en el ListBox
+            string usuario = txtUsuario.Text;
+            string password = txtContraseña.Text;
+            string tipoUsuario = lstTipoUsuario.SelectedItem?.ToString();
 
             if (tipoUsuario == null)
             {
@@ -37,7 +30,7 @@ namespace GrupoD.Prototipos.TP3.InicioSesion
             // Verificar si se trata de un cliente
             if (tipoUsuario == "CLIENTE")
             {
-                ClienteEntidad cliente = modelo.Clientes.Find(c => c.DNI.ToString() == usuario && c.Contraseña == contraseña);
+                ClienteEntidad cliente = modelo.ValidarCliente(usuario, password);
                 if (cliente != null)
                 {
                     MessageBox.Show("Inicio de sesión exitoso como cliente: " + cliente.Nombre + " " + cliente.Apellido);
@@ -50,7 +43,7 @@ namespace GrupoD.Prototipos.TP3.InicioSesion
             else if (tipoUsuario == "EMPLEADO")
             {
                 // Verificar si se trata de un empleado
-                EmpleadoEntidad empleado = modelo.Empleados.Find(e => e.Legajo.ToString() == usuario && e.Contraseña == contraseña);
+                EmpleadoEntidad empleado = modelo.ValidarEmpleado(usuario, password);
                 if (empleado != null)
                 {
                     MessageBox.Show("Inicio de sesión exitoso como empleado: " + empleado.Nombre + " " + empleado.Apellido);

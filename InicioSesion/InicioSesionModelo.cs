@@ -3,6 +3,8 @@
 namespace GrupoD.Prototipos.TP3.InicioSesion;
 internal class InicioSesionModelo
 {
+    public List<ClienteEntidad> Clientes { get; }
+    public List<EmpleadoEntidad> Empleados { get; }
     public InicioSesionModelo()
     {
         Clientes = new List<ClienteEntidad>
@@ -24,6 +26,15 @@ internal class InicioSesionModelo
         };
     }
 
-    public List<ClienteEntidad> Clientes { get; }
-    public List<EmpleadoEntidad> Empleados { get; }
+    public ClienteEntidad? ValidarCliente(string usuario, string password)
+    {
+        return Clientes
+            .Find(c => c.DNI.ToString() == usuario && c.Contraseña == password);
+    }
+
+    public EmpleadoEntidad? ValidarEmpleado(string usuario, string password)
+    {
+        return Empleados
+            .Find(e => e.Legajo.ToString() == usuario && e.Contraseña == password);
+    }
 }
