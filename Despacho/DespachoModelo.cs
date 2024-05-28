@@ -1,10 +1,12 @@
 ﻿using GrupoD.Prototipos.TP3.Entidades;
 using GrupoD.Prototipos.TP3.Estados;
+using System.Collections.Generic;
 
 namespace GrupoD.Prototipos.TP3.Despacho
 {
     public class DespachoModelo
     {
+        private readonly List<OrdenDeSeleccionEntidad> _ordenesDeSeleccion;
         private readonly List<OrdenDePreparacionEntidad> _ordenesDePreparacion;
         public DespachoModelo()
         {
@@ -46,6 +48,7 @@ namespace GrupoD.Prototipos.TP3.Despacho
                     }
                 }
             };
+            _ordenesDeSeleccion = new ();
         }
 
         public List<OrdenDePreparacionEntidad> ObtenerOrdenesParaDespacho()
@@ -64,6 +67,11 @@ namespace GrupoD.Prototipos.TP3.Despacho
                     op.Estado = OrdenDePreparacionEstado.DESPACHADA;
             });
 
+            _ordenesDeSeleccion.ForEach(os =>
+            {
+                if (ordenesADespachar.Contains(os.NumeroOrdenPreparacion))
+                    os.Estado = OrdenDeSeleccionEstado.DESPACHADA;
+            });
             return error;
         }
     }
