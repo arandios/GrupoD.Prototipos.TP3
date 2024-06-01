@@ -31,30 +31,32 @@
             lstOrdenes = new ListView();
             columnNumeroOrden = new ColumnHeader();
             columnCliente = new ColumnHeader();
+            columnClausulaEspecial = new ColumnHeader();
             label1 = new Label();
             btnGenerarOS = new Button();
             listPrioridad = new ListView();
             mercaderia = new ColumnHeader();
             cantidad = new ColumnHeader();
             label2 = new Label();
-            columnClausulaEspecial = new ColumnHeader();
             SuspendLayout();
             // 
             // lstOrdenes
             // 
             lstOrdenes.AutoArrange = false;
+            lstOrdenes.BackgroundImageTiled = true;
+            lstOrdenes.CheckBoxes = true;
             lstOrdenes.Columns.AddRange(new ColumnHeader[] { columnNumeroOrden, columnCliente, columnClausulaEspecial });
             lstOrdenes.FullRowSelect = true;
             lstOrdenes.HeaderStyle = ColumnHeaderStyle.Nonclickable;
             lstOrdenes.Location = new Point(14, 43);
             lstOrdenes.Margin = new Padding(3, 4, 3, 4);
-            lstOrdenes.MultiSelect = false;
             lstOrdenes.Name = "lstOrdenes";
             lstOrdenes.Size = new Size(376, 358);
             lstOrdenes.TabIndex = 0;
             lstOrdenes.UseCompatibleStateImageBehavior = false;
             lstOrdenes.View = View.Details;
-            lstOrdenes.MouseDoubleClick += lstOrdenes_SelectedOrden;
+            //lstOrdenes.MouseDoubleClick += lstOrdenes_SelectedOrden;
+            lstOrdenes.ItemCheck += new ItemCheckEventHandler(lstOrdenes_ItemCheck);
             // 
             // columnNumeroOrden
             // 
@@ -65,6 +67,11 @@
             // 
             columnCliente.Text = "CLIENTE";
             columnCliente.Width = 80;
+            // 
+            // columnClausulaEspecial
+            // 
+            columnClausulaEspecial.Text = "CLAUSULA ESPECIAL";
+            columnClausulaEspecial.Width = 160;
             // 
             // label1
             // 
@@ -117,11 +124,6 @@
             label2.Size = new Size(189, 20);
             label2.TabIndex = 4;
             label2.Text = "DETALLE DE LAS ORDENES";
-            // 
-            // columnClausulaEspecial
-            // 
-            columnClausulaEspecial.Text = "CLAUSULA ESPECIAL";
-            columnClausulaEspecial.Width = 160;
             // 
             // OrdenDeSeleccionForm
             // 
