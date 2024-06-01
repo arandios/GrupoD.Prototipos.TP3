@@ -57,7 +57,7 @@ namespace GrupoD.Prototipos.TP3
             });
         }
 
-        private void ActualizarDetallesOrdenesSeleccionadas()
+        /*private void ActualizarDetallesOrdenesSeleccionadas()
         {
             List<int> nroOrdenes = new List<int>();
             List<int> nroClientes = new List<int>();
@@ -85,6 +85,31 @@ namespace GrupoD.Prototipos.TP3
             if (nroOrdenes.Count == 0)
             {
                 MessageBox.Show("No se seleccionaron órdenes.", "Aviso");
+            }
+        }*/
+        private void ActualizarDetallesOrdenesSeleccionadas()
+        {
+            List<int> nroOrdenes = new List<int>();
+            List<int> nroClientes = new List<int>();
+
+            // Iterar sobre los ítems del ListView y obtener los seleccionados
+            foreach (ListViewItem item in lstOrdenes.Items)
+            {
+                if (item.Checked)
+                {
+                    nroOrdenes.Add(int.Parse(item.Text));
+                    nroClientes.Add(int.Parse(item.SubItems[1].Text));
+                }
+            }
+
+            listPrioridad.Items.Clear();
+
+            // Iterar sobre las órdenes seleccionadas y mostrar sus detalles
+            foreach (int nroOrden in nroOrdenes)
+            {
+                var orden = _ordenesPendientes.Find(op => op.NroOrden == nroOrden);
+                var mercaderias = orden is null ? new List<MercaderiaEntidad>() : orden.Mercaderias;
+                listPrioridad.Items.AddRange(ObtenerMercaderiaItems(mercaderias));
             }
         }
 
