@@ -87,6 +87,7 @@ namespace GrupoD.Prototipos.TP3
                 MessageBox.Show("No se seleccionaron órdenes.", "Aviso");
             }
         }
+
         private void btnGenerar_Click(object sender, EventArgs e)
         {
             List<int> nroOrdenes = new List<int>();
@@ -142,8 +143,18 @@ namespace GrupoD.Prototipos.TP3
 
                     if (string.IsNullOrEmpty(error))
                     {
+                        // Limpiar solo las órdenes seleccionadas en lstOrdenes
+                        foreach (ListViewItem item in lstOrdenes.Items)
+                        {
+                            if (item.Checked)
+                            {
+                                lstOrdenes.Items.Remove(item);
+                            }
+                        }
+
+                        // Limpiar listPrioridad
                         listPrioridad.Items.Clear();
-                        LoadOrdenesPendientes();
+
                         MessageBox.Show("Se ha generado la orden con éxito.");
                     }
                     else
@@ -161,6 +172,5 @@ namespace GrupoD.Prototipos.TP3
                 MessageBox.Show("Por favor, seleccione al menos un elemento.");
             }
         }
-
     }
 }
