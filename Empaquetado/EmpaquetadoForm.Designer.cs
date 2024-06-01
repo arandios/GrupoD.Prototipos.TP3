@@ -77,9 +77,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(25, 25);
             label1.Name = "label1";
-            label1.Size = new Size(292, 20);
+            label1.Size = new Size(287, 20);
             label1.TabIndex = 2;
-            label1.Text = "ORDENES DE PREPARACIÓN PREPARADAS";
+            label1.Text = "ORDENES DE PREPARACIÓN PENDIENTES";
             // 
             // listDetalleOrdenes
             // 
