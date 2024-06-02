@@ -42,10 +42,10 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
             if (nroOrden != 0)
             {
                 string detalle = "Mercaderías: \n\n";
-                _ordenesPriorizadas.ForEach(o => 
+                _ordenesPriorizadas.ForEach(o =>
                 {
                     if (o.Numero == nroOrden)
-                        o.MercaderiasPriorizadas.ForEach(m => 
+                        o.MercaderiasPriorizadas.ForEach(m =>
                         {
                             detalle += $"{m.Descripcion}, Cantidad: {m.Cantidad}\n";
                         });
@@ -85,6 +85,16 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
                     MessageBox.Show("Operación cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show("Por favor, seleccione al menos un elemento.");
+        }
+
+        private void EmpaquetadoForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

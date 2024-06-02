@@ -35,19 +35,21 @@ partial class MenuInicioForm
         // 
         // buttonOrdenDePreparacion
         // 
-        buttonOrdenDePreparacion.Location = new Point(56, 52);
+        buttonOrdenDePreparacion.Location = new Point(64, 59);
+        buttonOrdenDePreparacion.Margin = new Padding(3, 4, 3, 4);
         buttonOrdenDePreparacion.Name = "buttonOrdenDePreparacion";
-        buttonOrdenDePreparacion.Size = new Size(143, 23);
+        buttonOrdenDePreparacion.Size = new Size(200, 35);
         buttonOrdenDePreparacion.TabIndex = 8;
-        buttonOrdenDePreparacion.Text = "Ordenes de preparación";
+        buttonOrdenDePreparacion.Text = "Ordenes de selección";
         buttonOrdenDePreparacion.UseVisualStyleBackColor = true;
         buttonOrdenDePreparacion.Click += buttonOrdenDePreparacion_Click;
         // 
         // buttonEmpaquetado
         // 
-        buttonEmpaquetado.Location = new Point(56, 100);
+        buttonEmpaquetado.Location = new Point(64, 117);
+        buttonEmpaquetado.Margin = new Padding(3, 4, 3, 4);
         buttonEmpaquetado.Name = "buttonEmpaquetado";
-        buttonEmpaquetado.Size = new Size(143, 23);
+        buttonEmpaquetado.Size = new Size(200, 31);
         buttonEmpaquetado.TabIndex = 10;
         buttonEmpaquetado.Text = "Empaquetado";
         buttonEmpaquetado.UseVisualStyleBackColor = true;
@@ -55,9 +57,10 @@ partial class MenuInicioForm
         // 
         // buttonDespacho
         // 
-        buttonDespacho.Location = new Point(56, 144);
+        buttonDespacho.Location = new Point(64, 173);
+        buttonDespacho.Margin = new Padding(3, 4, 3, 4);
         buttonDespacho.Name = "buttonDespacho";
-        buttonDespacho.Size = new Size(143, 23);
+        buttonDespacho.Size = new Size(200, 31);
         buttonDespacho.TabIndex = 11;
         buttonDespacho.Text = "Despacho";
         buttonDespacho.UseVisualStyleBackColor = true;
@@ -65,12 +68,13 @@ partial class MenuInicioForm
         // 
         // MenuInicioForm
         // 
-        AutoScaleDimensions = new SizeF(7F, 15F);
+        AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(248, 228);
+        ClientSize = new Size(331, 290);
         Controls.Add(buttonDespacho);
         Controls.Add(buttonEmpaquetado);
         Controls.Add(buttonOrdenDePreparacion);
+        Margin = new Padding(3, 4, 3, 4);
         Name = "MenuInicioForm";
         Text = "Inicio";
         Load += MenuInicioForm_Load;

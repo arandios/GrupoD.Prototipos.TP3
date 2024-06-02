@@ -31,17 +31,24 @@
             listOrdenesSeleccion = new ListView();
             columnNroOrdenEmpaquetar = new ColumnHeader();
             columnClienteEmpaquetar = new ColumnHeader();
-            buttonConfirmarEmpaquetado = new Button();
             label1 = new Label();
+            listDetalleOrdenes = new ListView();
+            label2 = new Label();
+            buttonEmpaquetar = new Button();
+            buttonConfirmarEmpaquetado = new Button();
+            listOrdenesEmpaquetadas = new ListView();
+            l = new Label();
             SuspendLayout();
             // 
             // listOrdenesSeleccion
             // 
+            listOrdenesSeleccion.CheckBoxes = true;
             listOrdenesSeleccion.Columns.AddRange(new ColumnHeader[] { columnNroOrdenEmpaquetar, columnClienteEmpaquetar });
             listOrdenesSeleccion.FullRowSelect = true;
-            listOrdenesSeleccion.Location = new Point(22, 37);
+            listOrdenesSeleccion.Location = new Point(25, 49);
+            listOrdenesSeleccion.Margin = new Padding(3, 4, 3, 4);
             listOrdenesSeleccion.Name = "listOrdenesSeleccion";
-            listOrdenesSeleccion.Size = new Size(267, 317);
+            listOrdenesSeleccion.Size = new Size(287, 273);
             listOrdenesSeleccion.TabIndex = 0;
             listOrdenesSeleccion.UseCompatibleStateImageBehavior = false;
             listOrdenesSeleccion.View = View.Details;
@@ -57,35 +64,94 @@
             columnClienteEmpaquetar.Text = "CLIENTE";
             columnClienteEmpaquetar.Width = 80;
             // 
-            // buttonConfirmarEmpaquetado
-            // 
-            buttonConfirmarEmpaquetado.Location = new Point(22, 367);
-            buttonConfirmarEmpaquetado.Name = "buttonConfirmarEmpaquetado";
-            buttonConfirmarEmpaquetado.Size = new Size(267, 23);
-            buttonConfirmarEmpaquetado.TabIndex = 1;
-            buttonConfirmarEmpaquetado.Text = "CONFIRMAR EMPAQUETADO PARA DESPACHO";
-            buttonConfirmarEmpaquetado.UseVisualStyleBackColor = true;
-            buttonConfirmarEmpaquetado.Click += EmpaquetarParaDespacho;
-            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(22, 9);
+            label1.Location = new Point(25, 25);
             label1.Name = "label1";
-            label1.Size = new Size(248, 15);
+            label1.Size = new Size(287, 20);
             label1.TabIndex = 2;
-            label1.Text = "ORDENES DE SELECCIÓN PARA EMPAQUETAR";
+            label1.Text = "ORDENES DE PREPARACIÓN PENDIENTES";
+            label1.Click += label1_Click;
+            // 
+            // listDetalleOrdenes
+            // 
+            listDetalleOrdenes.FullRowSelect = true;
+            listDetalleOrdenes.Location = new Point(337, 49);
+            listDetalleOrdenes.Margin = new Padding(3, 4, 3, 4);
+            listDetalleOrdenes.Name = "listDetalleOrdenes";
+            listDetalleOrdenes.Size = new Size(284, 273);
+            listDetalleOrdenes.TabIndex = 3;
+            listDetalleOrdenes.UseCompatibleStateImageBehavior = false;
+            listDetalleOrdenes.View = View.Details;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(337, 25);
+            label2.Name = "label2";
+            label2.Size = new Size(189, 20);
+            label2.TabIndex = 4;
+            label2.Text = "DETALLE DE LAS ORDENES";
+            // 
+            // buttonEmpaquetar
+            // 
+            buttonEmpaquetar.Location = new Point(349, 330);
+            buttonEmpaquetar.Margin = new Padding(3, 4, 3, 4);
+            buttonEmpaquetar.Name = "buttonEmpaquetar";
+            buttonEmpaquetar.Size = new Size(259, 33);
+            buttonEmpaquetar.TabIndex = 5;
+            buttonEmpaquetar.Text = "EMPAQUETAR";
+            buttonEmpaquetar.UseVisualStyleBackColor = true;
+            // 
+            // buttonConfirmarEmpaquetado
+            // 
+            buttonConfirmarEmpaquetado.Location = new Point(697, 330);
+            buttonConfirmarEmpaquetado.Margin = new Padding(3, 4, 3, 4);
+            buttonConfirmarEmpaquetado.Name = "buttonConfirmarEmpaquetado";
+            buttonConfirmarEmpaquetado.Size = new Size(305, 33);
+            buttonConfirmarEmpaquetado.TabIndex = 1;
+            buttonConfirmarEmpaquetado.Text = "GENERAR ORDEN DE ENTREGA";
+            buttonConfirmarEmpaquetado.UseVisualStyleBackColor = true;
+            buttonConfirmarEmpaquetado.Click += EmpaquetarParaDespacho;
+            // 
+            // listOrdenesEmpaquetadas
+            // 
+            listOrdenesEmpaquetadas.FullRowSelect = true;
+            listOrdenesEmpaquetadas.Location = new Point(697, 49);
+            listOrdenesEmpaquetadas.Margin = new Padding(3, 4, 3, 4);
+            listOrdenesEmpaquetadas.Name = "listOrdenesEmpaquetadas";
+            listOrdenesEmpaquetadas.Size = new Size(305, 273);
+            listOrdenesEmpaquetadas.TabIndex = 6;
+            listOrdenesEmpaquetadas.UseCompatibleStateImageBehavior = false;
+            listOrdenesEmpaquetadas.View = View.Details;
+            // 
+            // l
+            // 
+            l.AutoSize = true;
+            l.Location = new Point(697, 25);
+            l.Name = "l";
+            l.Size = new Size(192, 20);
+            l.TabIndex = 7;
+            l.Text = "ORDENES EMPAQUETADAS";
             // 
             // EmpaquetadoForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(319, 402);
+            ClientSize = new Size(1041, 414);
+            Controls.Add(l);
+            Controls.Add(listOrdenesEmpaquetadas);
+            Controls.Add(buttonEmpaquetar);
+            Controls.Add(label2);
+            Controls.Add(listDetalleOrdenes);
             Controls.Add(label1);
             Controls.Add(buttonConfirmarEmpaquetado);
             Controls.Add(listOrdenesSeleccion);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "EmpaquetadoForm";
             Text = "Empaquetado";
+            Load += EmpaquetadoForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -93,9 +159,15 @@
         #endregion
 
         private ListView listOrdenesSeleccion;
-        private Button buttonConfirmarEmpaquetado;
         private Label label1;
         private ColumnHeader columnNroOrdenEmpaquetar;
         private ColumnHeader columnClienteEmpaquetar;
+        private ListView listDetalleOrdenes;
+        private Label label2;
+        private Button buttonEmpaquetar;
+        private Button buttonConfirmarEmpaquetado;
+        private ListView listOrdenesEmpaquetadas;
+        private Label l;
+        private ListView listView1;
     }
 }
