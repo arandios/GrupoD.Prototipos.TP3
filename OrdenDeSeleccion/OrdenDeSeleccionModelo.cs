@@ -1,5 +1,5 @@
 ﻿using GrupoD.Prototipos.TP3.Entidades;
-using GrupoD.Prototipos.TP3.Estados;
+using GrupoD.Prototipos.TP3.Entidades.Estados;
 using GrupoD.Prototipos.TP3.OrdenDePreparacion;
 
 namespace GrupoD.Prototipos.TP3.OrdenDeSeleccion

@@ -8,7 +8,7 @@ namespace GrupoD.Prototipos.TP3.Despacho
         private List<OrdenDePreparacionEntidad> _ordenesParaDespacho;
         public DespachoForm()
         {
-            _modelo = new ();
+            _modelo = new();
             InitializeComponent();
             LoadOrdenesParaDespacho();
         }
@@ -80,6 +80,11 @@ namespace GrupoD.Prototipos.TP3.Despacho
                     MessageBox.Show("Operación cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else MessageBox.Show("Por favor, seleccione al menos un elemento.");
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

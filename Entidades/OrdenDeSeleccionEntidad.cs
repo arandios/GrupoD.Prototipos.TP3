@@ -1,4 +1,4 @@
-﻿using GrupoD.Prototipos.TP3.Estados;
+﻿using GrupoD.Prototipos.TP3.Entidades.Estados;
 
 namespace GrupoD.Prototipos.TP3.Entidades
 {

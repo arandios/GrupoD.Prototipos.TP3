@@ -1,5 +1,5 @@
 ﻿using GrupoD.Prototipos.TP3.Entidades;
-using GrupoD.Prototipos.TP3.Estados;
+using GrupoD.Prototipos.TP3.Entidades.Estados;
 using System.Collections.Generic;
 
 namespace GrupoD.Prototipos.TP3.Despacho
@@ -8,6 +8,7 @@ namespace GrupoD.Prototipos.TP3.Despacho
     {
         private readonly List<OrdenDeSeleccionEntidad> _ordenesDeSeleccion;
         private readonly List<OrdenDePreparacionEntidad> _ordenesDePreparacion;
+        private readonly List<MercaderiaEntidad> _mercaderias;
         public DespachoModelo()
         {
             _ordenesDePreparacion = new List<OrdenDePreparacionEntidad>
@@ -61,6 +62,8 @@ namespace GrupoD.Prototipos.TP3.Despacho
         {
             string error = string.Empty;
 
+            // Comienza la transacción.
+            // 1 - Le agrego las mercaderias a 
             _ordenesDePreparacion.ForEach(op =>
             {
                 if (ordenesADespachar.Contains(op.NroOrden))

@@ -1,5 +1,5 @@
 ﻿using GrupoD.Prototipos.TP3.Entidades;
-using GrupoD.Prototipos.TP3.Estados;
+using GrupoD.Prototipos.TP3.Entidades.Estados;
 
 namespace GrupoD.Prototipos.TP3.OrdenDePreparacion
 {
@@ -35,7 +35,7 @@ namespace GrupoD.Prototipos.TP3.OrdenDePreparacion
             return _mercaderias
                 .FindAll(m => m.NumeroCliente == cliente.NumeroCliente);
         }
-        public string Crear(OrdenDePreparacionEntidad orden)
+        public string CrearOrdenDePreparacion(OrdenDePreparacionEntidad orden)
         {
             string error = string.Empty;
             orden.Estado = OrdenDePreparacionEstado.PENDIENTE;
@@ -47,17 +47,6 @@ namespace GrupoD.Prototipos.TP3.OrdenDePreparacion
                     if (item.Id == m.Id)
                         item.Cantidad -= m.Cantidad;
                 });
-            });
-            _mercaderias.RemoveAll(m => m.Cantidad == 0);
-            return error;
-        }
-        public string Finalizar(int nroOrden)
-        {
-            string error = string.Empty;
-            _ordenesDePreparacion.ForEach(op => 
-            {
-                if (op.NroOrden == nroOrden)
-                    op.Estado = OrdenDePreparacionEstado.DESPACHADA;
             });
             return error;
         }

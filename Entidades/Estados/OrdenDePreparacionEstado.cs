@@ -1,9 +1,9 @@
-﻿namespace GrupoD.Prototipos.TP3.Estados
+﻿namespace GrupoD.Prototipos.TP3.Entidades.Estados
 {
     public enum OrdenDePreparacionEstado
     {
         PENDIENTE,
-        EN_PREPARACION,
+        EN_SELECCION,
         LISTA_PARA_DESPACHO,
         DESPACHADA
     }

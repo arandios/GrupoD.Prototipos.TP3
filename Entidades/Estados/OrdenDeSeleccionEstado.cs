@@ -1,4 +1,4 @@
-﻿namespace GrupoD.Prototipos.TP3.Estados
+﻿namespace GrupoD.Prototipos.TP3.Entidades.Estados
 {
     public enum OrdenDeSeleccionEstado
     {

@@ -12,7 +12,7 @@ namespace GrupoD.Prototipos.TP3
             _modelo = new();
             _cliente = cliente;
             InitializeComponent();
-            LoadCliente();
+            LoadMercaderiasCliente();
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -29,6 +29,10 @@ namespace GrupoD.Prototipos.TP3
                         if (cantidad > int.Parse(mercaderiaSelected[2].Text))
                             error += $"La cantidad a preparar de {mercaderiaSelected[1].Text}" +
                                 " no puede superar la cantidad en inventario.\n";
+
+                        if (int.Parse(mercaderiaSelected[2].Text) == 0)
+                            error += $"No posee {mercaderiaSelected[1].Text}" +
+                                " en inventario.\n";
 
                         for (int j = 0; j < lstMercaderiaSeleccionada.Items.Count; j++)
                         {
@@ -99,12 +103,12 @@ namespace GrupoD.Prototipos.TP3
                 if (resultado == DialogResult.Yes)
                 {
                     orden.Mercaderias = mercaderias;
-                    string error = _modelo.Crear(orden);
+                    string error = _modelo.CrearOrdenDePreparacion(orden);
 
                     if (string.IsNullOrEmpty(error))
                     {
                         lstMercaderiaSeleccionada.Items.Clear();
-                        LoadCliente();
+                        LoadMercaderiasCliente();
                         MessageBox.Show("Se ha generado la orden con éxito.");
                     }
                     else MessageBox.Show(error);
@@ -114,7 +118,7 @@ namespace GrupoD.Prototipos.TP3
             }
             else MessageBox.Show("Por favor, seleccione al menos un elemento.");
         }
-        private void LoadCliente()
+        private void LoadMercaderiasCliente()
         {
             lblNroCliente.Text = $"{_cliente.Nombre.ToString().ToUpper()}, {_cliente.Apellido.ToString().ToUpper()}";
             listMercaderias.Items.Clear();
