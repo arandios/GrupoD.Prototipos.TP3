@@ -91,5 +91,10 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
         {
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
