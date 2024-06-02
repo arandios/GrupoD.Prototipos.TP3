@@ -14,6 +14,7 @@ namespace GrupoD.Prototipos.TP3
             InitializeComponent();
             LoadCliente();
         }
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (listMercaderias.CheckedItems != null && listMercaderias.CheckedItems.Count > 0)
@@ -22,13 +23,17 @@ namespace GrupoD.Prototipos.TP3
                 {
                     List<MercaderiaEntidad> mercaderias = new();
                     string error = string.Empty;
+
                     for (int i = 0; i < listMercaderias.CheckedItems.Count; i++)
                     {
                         var mercaderiaSelected = listMercaderias.CheckedItems[i].SubItems;
 
-                        if (cantidad > int.Parse(mercaderiaSelected[2].Text))
-                            error += $"La cantidad a preparar de {mercaderiaSelected[1].Text}" +
-                                " no puede superar la cantidad en inventario.\n";
+                        int cantidadEnInventario = int.Parse(mercaderiaSelected[2].Text);
+
+                        if (cantidad > cantidadEnInventario)
+                        {
+                            error += $"La cantidad a preparar de {mercaderiaSelected[1].Text} no puede superar la cantidad en inventario.\n";
+                        }
 
                         for (int j = 0; j < lstMercaderiaSeleccionada.Items.Count; j++)
                         {
@@ -48,30 +53,91 @@ namespace GrupoD.Prototipos.TP3
                             Cantidad = cantidad,
                             NumeroCliente = _cliente.NumeroCliente
                         });
+
+                        // Actualizar la cantidad en inventario o eliminar el ítem si la cantidad llega a 0
+                        int nuevaCantidad = cantidadEnInventario - cantidad;
+                        if (nuevaCantidad == 0)
+                        {
+                            listMercaderias.Items.Remove(listMercaderias.CheckedItems[i]);
+                        }
+                        else
+                        {
+                            mercaderiaSelected[2].Text = nuevaCantidad.ToString();
+                        }
                     }
 
                     if (string.IsNullOrEmpty(error))
                     {
                         lstMercaderiaSeleccionada.Items.AddRange(GetMercaderiaItems(mercaderias));
                         txtCantidad.Clear();
+
+                        // Deseleccionar todos los ítems de listMercaderias
+                        foreach (ListViewItem item in listMercaderias.Items)
+                        {
+                            item.Checked = false;
+                        }
                     }
-                    else MessageBox.Show(error);
+                    else
+                    {
+                        MessageBox.Show(error);
+                    }
                 }
-                else MessageBox.Show("Por favor, ingrese una cantidad válida.");
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese una cantidad válida.");
+                }
             }
-            else MessageBox.Show("Por favor, seleccione un elemento en la lista de mercaderías.");
+            else
+            {
+                MessageBox.Show("Por favor, seleccione un elemento en la lista de mercaderías.");
+            }
         }
+
+
+
         private void btnBorrar_Click(object sender, EventArgs e)
         {
             if (lstMercaderiaSeleccionada.CheckedItems.Count > 0)
             {
                 for (int i = 0; i < lstMercaderiaSeleccionada.CheckedItems.Count; i++)
                 {
-                    lstMercaderiaSeleccionada.Items.Remove(lstMercaderiaSeleccionada.CheckedItems[i]);
+                    var item = lstMercaderiaSeleccionada.CheckedItems[i];
+                    int id = int.Parse(item.Text);
+                    int cantidadDevuelta = int.Parse(item.SubItems[2].Text);
+
+                    // Encontrar el ítem en listMercaderias y actualizar su cantidad
+                    bool encontrado = false;
+                    foreach (ListViewItem mercItem in listMercaderias.Items)
+                    {
+                        if (int.Parse(mercItem.Text) == id)
+                        {
+                            int cantidadEnInventario = int.Parse(mercItem.SubItems[2].Text);
+                            mercItem.SubItems[2].Text = (cantidadEnInventario + cantidadDevuelta).ToString();
+                            encontrado = true;
+                            break;
+                        }
+                    }
+
+                    // Si el ítem no se encuentra en listMercaderias, agregarlo de nuevo
+                    if (!encontrado)
+                    {
+                        ListViewItem newItem = new ListViewItem(item.Text);
+                        newItem.SubItems.Add(item.SubItems[1].Text);
+                        newItem.SubItems.Add(item.SubItems[2].Text);
+                        listMercaderias.Items.Add(newItem);
+                    }
+
+                    // Eliminar el ítem de lstMercaderiaSeleccionada
+                    lstMercaderiaSeleccionada.Items.Remove(item);
                 }
             }
-            else MessageBox.Show("Por favor, seleccione un elemento para borrar.");
+            else
+            {
+                MessageBox.Show("Por favor, seleccione un elemento para borrar.");
+            }
         }
+
+
         private void btnGenerar_Click(object sender, EventArgs e)
         {
             OrdenDePreparacionEntidad orden = new ();
