@@ -42,12 +42,9 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
         {
             listDetalleOrdenes.Items.Clear();
 
-            int nroOrden = 0;
             if (listOrdenesSeleccion.SelectedItems.Count > 0)
-                nroOrden = int.Parse(listOrdenesSeleccion.SelectedItems[0].Text);
-
-            if (nroOrden != 0)
             {
+                int nroOrden = int.Parse(listOrdenesSeleccion.SelectedItems[0].Text);
                 List<MercaderiaEntidad> mercaderias = new List<MercaderiaEntidad>();
                 _ordenesPriorizadas.ForEach(o =>
                 {
@@ -64,7 +61,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
             List<ListViewItem> viewItems = new();
             foreach (var mercaderia in mercaderias)
             {
-                ListViewItem item = new(mercaderia.Descripcion);
+                ListViewItem item = new ListViewItem(mercaderia.Descripcion);
                 item.SubItems.Add(mercaderia.Cantidad.ToString());
                 viewItems.Add(item);
             }
@@ -145,6 +142,18 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
             else
             {
                 MessageBox.Show("Por favor, seleccione al menos una orden para empaquetar.");
+            }
+        }
+
+        private void btnIzquierda_Click(object sender, EventArgs e)
+        {
+            if (listOrdenesEmpaquetadas.Items.Count > 0)
+            {
+                listOrdenesEmpaquetadas.Items.Clear(); // Eliminar el único elemento de listOrdenesEmpaquetadas
+            }
+            else
+            {
+                MessageBox.Show("No hay elementos para eliminar.");
             }
         }
     }

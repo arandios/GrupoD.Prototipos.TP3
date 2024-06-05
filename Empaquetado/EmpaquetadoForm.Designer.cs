@@ -41,6 +41,7 @@
             columnOrdenesEmpaquetadas = new ColumnHeader();
             l = new Label();
             btnIzquierda = new Button();
+            columnCantidad = new ColumnHeader();
             SuspendLayout();
             // 
             // listOrdenesSeleccion
@@ -80,7 +81,8 @@
             // 
             // listDetalleOrdenes
             // 
-            listDetalleOrdenes.Columns.AddRange(new ColumnHeader[] { columnDetalle });
+            listDetalleOrdenes.Columns.AddRange(new ColumnHeader[] { columnDetalle, columnCantidad });
+            listDetalleOrdenes.Enabled = false;
             listDetalleOrdenes.FullRowSelect = true;
             listDetalleOrdenes.Location = new Point(295, 37);
             listDetalleOrdenes.Name = "listDetalleOrdenes";
@@ -92,7 +94,7 @@
             // columnDetalle
             // 
             columnDetalle.Text = "DETALLE";
-            columnDetalle.Width = 200;
+            columnDetalle.Width = 160;
             // 
             // label2
             // 
@@ -126,6 +128,7 @@
             // listOrdenesEmpaquetadas
             // 
             listOrdenesEmpaquetadas.Columns.AddRange(new ColumnHeader[] { columnOrdenesEmpaquetadas });
+            listOrdenesEmpaquetadas.Enabled = false;
             listOrdenesEmpaquetadas.FullRowSelect = true;
             listOrdenesEmpaquetadas.Location = new Point(610, 37);
             listOrdenesEmpaquetadas.Name = "listOrdenesEmpaquetadas";
@@ -156,6 +159,13 @@
             btnIzquierda.TabIndex = 8;
             btnIzquierda.Text = "<-";
             btnIzquierda.UseVisualStyleBackColor = true;
+            btnIzquierda.Click += btnIzquierda_Click;
+            // 
+            // columnCantidad
+            // 
+            columnCantidad.Text = "CANTIDAD";
+            columnCantidad.TextAlign = HorizontalAlignment.Center;
+            columnCantidad.Width = 80;
             // 
             // EmpaquetadoForm
             // 
@@ -194,5 +204,6 @@
         private Button btnIzquierda;
         private ColumnHeader columnDetalle;
         private ColumnHeader columnOrdenesEmpaquetadas;
+        private ColumnHeader columnCantidad;
     }
 }
