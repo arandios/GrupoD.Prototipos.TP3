@@ -95,7 +95,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
                     {
                         LoadOrdenesPriorizadas();
                         listOrdenesEmpaquetadas.Items.Clear(); // Limpiar la ListView listOrdenesEmpaquetadas
-                        MessageBox.Show("Ordenes listas para despacho.");
+                        MessageBox.Show("Ordenes listas para su entrega en despacho.");
                     }
                     else
                     {
