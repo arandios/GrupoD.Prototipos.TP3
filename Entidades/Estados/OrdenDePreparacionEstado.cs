@@ -4,6 +4,7 @@
     {
         PENDIENTE,
         EN_SELECCION,
+        EN_PREPARACION,
         LISTA_PARA_DESPACHO,
         DESPACHADA
     }

@@ -243,7 +243,7 @@
             labelCuitRemitente.Size = new Size(27, 15);
             labelCuitRemitente.TabIndex = 22;
             labelCuitRemitente.Text = "DNI";
-            labelCuitRemitente.Click += this.labelCuitRemitente_Click;
+           // labelCuitRemitente.Click += this.labelCuitRemitente_Click;
             // 
             // listView2
             // 

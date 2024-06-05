@@ -19,6 +19,11 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
             listOrdenesSeleccion.Items.Clear();
             _ordenesPriorizadas = _modelo.ObtenerOrdenesPriorizadas();
             listOrdenesSeleccion.Items.AddRange(ObtenerOrdenesPriorizadasItems(_ordenesPriorizadas));
+
+            if (listOrdenesSeleccion.Items.Count > 0)
+            {
+                listOrdenesSeleccion.Items[0].Selected = true;
+            }
         }
 
         private static ListViewItem[] ObtenerOrdenesPriorizadasItems(List<OrdenDeSeleccionEntidad> ordenes)
@@ -35,34 +40,46 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
 
         private void VerDetalleOrden(object sender, EventArgs e)
         {
+            listDetalleOrdenes.Items.Clear();
+
             int nroOrden = 0;
             if (listOrdenesSeleccion.SelectedItems.Count > 0)
                 nroOrden = int.Parse(listOrdenesSeleccion.SelectedItems[0].Text);
 
             if (nroOrden != 0)
             {
-                string detalle = "Mercaderías: \n\n";
+                List<MercaderiaEntidad> mercaderias = new List<MercaderiaEntidad>();
                 _ordenesPriorizadas.ForEach(o =>
                 {
                     if (o.Numero == nroOrden)
-                        o.MercaderiasPriorizadas.ForEach(m =>
-                        {
-                            detalle += $"{m.Descripcion}, Cantidad: {m.Cantidad}\n";
-                        });
+                        mercaderias.AddRange(o.MercaderiasPriorizadas);
                 });
-                MessageBox.Show(detalle, "Detalle de orden");
+
+                listDetalleOrdenes.Items.AddRange(ObtenerMercaderiasItems(mercaderias));
             }
+        }
+
+        private static ListViewItem[] ObtenerMercaderiasItems(List<MercaderiaEntidad> mercaderias)
+        {
+            List<ListViewItem> viewItems = new();
+            foreach (var mercaderia in mercaderias)
+            {
+                ListViewItem item = new(mercaderia.Descripcion);
+                item.SubItems.Add(mercaderia.Cantidad.ToString());
+                viewItems.Add(item);
+            }
+            return viewItems.ToArray();
         }
 
         private void EmpaquetarParaDespacho(object sender, EventArgs e)
         {
             List<int> ordenesSeleccionadas = new();
-            if (listOrdenesSeleccion.SelectedItems.Count > 0)
+            if (listOrdenesEmpaquetadas.Items.Count > 0)
             {
                 string mensajeConfirmacion = "¿Estás seguro de enviar a despacho las siguientes órdenes?\n\n";
-                for (int i = 0; i < listOrdenesSeleccion.SelectedItems.Count; i++)
+                for (int i = 0; i < listOrdenesEmpaquetadas.Items.Count; i++)
                 {
-                    int numeroOrden = int.Parse(listOrdenesSeleccion.SelectedItems[i].SubItems[0].Text);
+                    int numeroOrden = int.Parse(listOrdenesEmpaquetadas.Items[i].SubItems[0].Text);
                     ordenesSeleccionadas.Add(numeroOrden);
                     mensajeConfirmacion += $"Numero de orden: {numeroOrden}\n";
                 }
@@ -77,15 +94,25 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
                     if (string.IsNullOrEmpty(error))
                     {
                         LoadOrdenesPriorizadas();
+                        listOrdenesEmpaquetadas.Items.Clear(); // Limpiar la ListView listOrdenesEmpaquetadas
                         MessageBox.Show("Ordenes listas para despacho.");
                     }
-                    else MessageBox.Show(error);
+                    else
+                    {
+                        MessageBox.Show(error);
+                    }
                 }
                 else
+                {
                     MessageBox.Show("Operación cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            else MessageBox.Show("Por favor, seleccione al menos un elemento.");
+            else
+            {
+                MessageBox.Show("Por favor, seleccione al menos un elemento en las órdenes empaquetadas.");
+            }
         }
+
 
         private void EmpaquetadoForm_Load(object sender, EventArgs e)
         {
@@ -95,6 +122,30 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnDerecha_Click(object sender, EventArgs e)
+        {
+            if (listOrdenesEmpaquetadas.Items.Count > 0)
+            {
+                MessageBox.Show("La lista de órdenes empacadas ya contiene un elemento. No se pueden agregar más.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (listOrdenesSeleccion.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem selectedItem in listOrdenesSeleccion.SelectedItems)
+                {
+                    int numeroOrden = int.Parse(selectedItem.SubItems[0].Text);
+                    ListViewItem item = new ListViewItem(numeroOrden.ToString());
+                    listOrdenesEmpaquetadas.Items.Add(item);
+                    break; // Solo agregar un elemento y salir del bucle
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, seleccione al menos una orden para empaquetar.");
+            }
         }
     }
 }

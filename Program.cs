@@ -1,4 +1,5 @@
 using GrupoD.Prototipos.TP3.Despacho;
+using GrupoD.Prototipos.TP3.Empaquetado;
 using GrupoD.Prototipos.TP3.InicioSesion;
 
 namespace GrupoD.Prototipos.TP3
@@ -15,7 +16,7 @@ namespace GrupoD.Prototipos.TP3
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //Application.Run(new InicioSesionForm());
-            Application.Run(new DespachoForm());
+            Application.Run(new EmpaquetadoForm());
         }
     }
 }
