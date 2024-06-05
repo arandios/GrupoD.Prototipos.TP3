@@ -34,14 +34,15 @@
             label1 = new Label();
             listDetalleOrdenes = new ListView();
             columnDetalle = new ColumnHeader();
+            columnCantidad = new ColumnHeader();
             label2 = new Label();
             btnDerecha = new Button();
             buttonConfirmarEmpaquetado = new Button();
             listOrdenesEmpaquetadas = new ListView();
             columnOrdenesEmpaquetadas = new ColumnHeader();
+            columnCantEmpaquetadas = new ColumnHeader();
             l = new Label();
             btnIzquierda = new Button();
-            columnCantidad = new ColumnHeader();
             SuspendLayout();
             // 
             // listOrdenesSeleccion
@@ -82,7 +83,6 @@
             // listDetalleOrdenes
             // 
             listDetalleOrdenes.Columns.AddRange(new ColumnHeader[] { columnDetalle, columnCantidad });
-            listDetalleOrdenes.Enabled = false;
             listDetalleOrdenes.FullRowSelect = true;
             listDetalleOrdenes.Location = new Point(295, 37);
             listDetalleOrdenes.Name = "listDetalleOrdenes";
@@ -95,6 +95,12 @@
             // 
             columnDetalle.Text = "DETALLE";
             columnDetalle.Width = 160;
+            // 
+            // columnCantidad
+            // 
+            columnCantidad.Text = "CANTIDAD";
+            columnCantidad.TextAlign = HorizontalAlignment.Center;
+            columnCantidad.Width = 80;
             // 
             // label2
             // 
@@ -127,20 +133,25 @@
             // 
             // listOrdenesEmpaquetadas
             // 
-            listOrdenesEmpaquetadas.Columns.AddRange(new ColumnHeader[] { columnOrdenesEmpaquetadas });
-            listOrdenesEmpaquetadas.Enabled = false;
+            listOrdenesEmpaquetadas.Columns.AddRange(new ColumnHeader[] { columnOrdenesEmpaquetadas, columnCantEmpaquetadas });
             listOrdenesEmpaquetadas.FullRowSelect = true;
             listOrdenesEmpaquetadas.Location = new Point(610, 37);
             listOrdenesEmpaquetadas.Name = "listOrdenesEmpaquetadas";
-            listOrdenesEmpaquetadas.Size = new Size(150, 206);
+            listOrdenesEmpaquetadas.Size = new Size(239, 206);
             listOrdenesEmpaquetadas.TabIndex = 6;
             listOrdenesEmpaquetadas.UseCompatibleStateImageBehavior = false;
             listOrdenesEmpaquetadas.View = View.Details;
             // 
             // columnOrdenesEmpaquetadas
             // 
-            columnOrdenesEmpaquetadas.Text = "NRO. ORDEN";
-            columnOrdenesEmpaquetadas.Width = 100;
+            columnOrdenesEmpaquetadas.Text = "DETALLE";
+            columnOrdenesEmpaquetadas.Width = 160;
+            // 
+            // columnCantEmpaquetadas
+            // 
+            columnCantEmpaquetadas.Text = "CANTIDAD";
+            columnCantEmpaquetadas.TextAlign = HorizontalAlignment.Center;
+            columnCantEmpaquetadas.Width = 80;
             // 
             // l
             // 
@@ -161,17 +172,11 @@
             btnIzquierda.UseVisualStyleBackColor = true;
             btnIzquierda.Click += btnIzquierda_Click;
             // 
-            // columnCantidad
-            // 
-            columnCantidad.Text = "CANTIDAD";
-            columnCantidad.TextAlign = HorizontalAlignment.Center;
-            columnCantidad.Width = 80;
-            // 
             // EmpaquetadoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(770, 310);
+            ClientSize = new Size(899, 310);
             Controls.Add(btnIzquierda);
             Controls.Add(l);
             Controls.Add(listOrdenesEmpaquetadas);
@@ -205,5 +210,6 @@
         private ColumnHeader columnDetalle;
         private ColumnHeader columnOrdenesEmpaquetadas;
         private ColumnHeader columnCantidad;
+        private ColumnHeader columnCantEmpaquetadas;
     }
 }
