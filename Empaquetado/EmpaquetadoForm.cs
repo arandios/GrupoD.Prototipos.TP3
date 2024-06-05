@@ -139,7 +139,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
                     int numeroOrden = int.Parse(selectedItem.SubItems[0].Text);
                     ListViewItem item = new ListViewItem(numeroOrden.ToString());
                     listOrdenesEmpaquetadas.Items.Add(item);
-                    break; // Solo agregar un elemento y salir del bucle
+                    break; // Solo agregar un elemento y salir del bucle 
                 }
             }
             else
