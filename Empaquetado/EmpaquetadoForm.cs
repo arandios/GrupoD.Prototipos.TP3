@@ -167,10 +167,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
                         MessageBox.Show("Operación cancelada.", "Cancelado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Por favor, seleccione al menos un elemento en las órdenes empaquetadas.");
-                }
+                
 
                 
             }

@@ -50,10 +50,9 @@
             listOrdenesSeleccion.Columns.AddRange(new ColumnHeader[] { columnNroOrdenEmpaquetar, columnClienteEmpaquetar });
             listOrdenesSeleccion.Enabled = false;
             listOrdenesSeleccion.FullRowSelect = true;
-            listOrdenesSeleccion.Location = new Point(25, 49);
-            listOrdenesSeleccion.Margin = new Padding(3, 4, 3, 4);
+            listOrdenesSeleccion.Location = new Point(22, 37);
             listOrdenesSeleccion.Name = "listOrdenesSeleccion";
-            listOrdenesSeleccion.Size = new Size(287, 273);
+            listOrdenesSeleccion.Size = new Size(244, 206);
             listOrdenesSeleccion.TabIndex = 0;
             listOrdenesSeleccion.UseCompatibleStateImageBehavior = false;
             listOrdenesSeleccion.View = View.Details;
@@ -69,14 +68,14 @@
             // 
             columnClienteEmpaquetar.Text = "CLIENTE";
             columnClienteEmpaquetar.TextAlign = HorizontalAlignment.Center;
-            columnClienteEmpaquetar.Width = 180;
+            columnClienteEmpaquetar.Width = 140;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(25, 25);
+            label1.Location = new Point(25, 19);
             label1.Name = "label1";
-            label1.Size = new Size(287, 20);
+            label1.Size = new Size(225, 15);
             label1.TabIndex = 2;
             label1.Text = "ORDENES DE PREPARACIÓN PENDIENTES";
             label1.Click += label1_Click;
@@ -85,10 +84,9 @@
             // 
             listDetalleOrdenes.Columns.AddRange(new ColumnHeader[] { columnDetalle, columnCantidad });
             listDetalleOrdenes.FullRowSelect = true;
-            listDetalleOrdenes.Location = new Point(337, 49);
-            listDetalleOrdenes.Margin = new Padding(3, 4, 3, 4);
+            listDetalleOrdenes.Location = new Point(284, 37);
             listDetalleOrdenes.Name = "listDetalleOrdenes";
-            listDetalleOrdenes.Size = new Size(284, 273);
+            listDetalleOrdenes.Size = new Size(244, 206);
             listDetalleOrdenes.TabIndex = 3;
             listDetalleOrdenes.UseCompatibleStateImageBehavior = false;
             listDetalleOrdenes.View = View.Details;
@@ -96,7 +94,7 @@
             // columnDetalle
             // 
             columnDetalle.Text = "DETALLE";
-            columnDetalle.Width = 170;
+            columnDetalle.Width = 140;
             // 
             // columnCantidad
             // 
@@ -107,18 +105,17 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(337, 25);
+            label2.Location = new Point(288, 19);
             label2.Name = "label2";
-            label2.Size = new Size(189, 20);
+            label2.Size = new Size(146, 15);
             label2.TabIndex = 4;
             label2.Text = "DETALLE DE LAS ORDENES";
             // 
             // btnDerecha
             // 
-            btnDerecha.Location = new Point(629, 148);
-            btnDerecha.Margin = new Padding(3, 4, 3, 4);
+            btnDerecha.Location = new Point(544, 110);
             btnDerecha.Name = "btnDerecha";
-            btnDerecha.Size = new Size(62, 33);
+            btnDerecha.Size = new Size(54, 25);
             btnDerecha.TabIndex = 5;
             btnDerecha.Text = "->";
             btnDerecha.UseVisualStyleBackColor = true;
@@ -126,10 +123,9 @@
             // 
             // buttonConfirmarEmpaquetado
             // 
-            buttonConfirmarEmpaquetado.Location = new Point(697, 331);
-            buttonConfirmarEmpaquetado.Margin = new Padding(3, 4, 3, 4);
+            buttonConfirmarEmpaquetado.Location = new Point(610, 248);
             buttonConfirmarEmpaquetado.Name = "buttonConfirmarEmpaquetado";
-            buttonConfirmarEmpaquetado.Size = new Size(273, 31);
+            buttonConfirmarEmpaquetado.Size = new Size(239, 23);
             buttonConfirmarEmpaquetado.TabIndex = 1;
             buttonConfirmarEmpaquetado.Text = "GENERAR ORDEN DE ENTREGA";
             buttonConfirmarEmpaquetado.UseVisualStyleBackColor = true;
@@ -139,10 +135,9 @@
             // 
             listOrdenesEmpaquetadas.Columns.AddRange(new ColumnHeader[] { columnOrdenesEmpaquetadas, columnCantEmpaquetadas });
             listOrdenesEmpaquetadas.FullRowSelect = true;
-            listOrdenesEmpaquetadas.Location = new Point(697, 49);
-            listOrdenesEmpaquetadas.Margin = new Padding(3, 4, 3, 4);
+            listOrdenesEmpaquetadas.Location = new Point(610, 37);
             listOrdenesEmpaquetadas.Name = "listOrdenesEmpaquetadas";
-            listOrdenesEmpaquetadas.Size = new Size(273, 273);
+            listOrdenesEmpaquetadas.Size = new Size(239, 206);
             listOrdenesEmpaquetadas.TabIndex = 6;
             listOrdenesEmpaquetadas.UseCompatibleStateImageBehavior = false;
             listOrdenesEmpaquetadas.View = View.Details;
@@ -150,29 +145,28 @@
             // columnOrdenesEmpaquetadas
             // 
             columnOrdenesEmpaquetadas.Text = "DETALLE";
-            columnOrdenesEmpaquetadas.Width = 170;
+            columnOrdenesEmpaquetadas.Width = 140;
             // 
             // columnCantEmpaquetadas
             // 
             columnCantEmpaquetadas.Text = "CANTIDAD";
             columnCantEmpaquetadas.TextAlign = HorizontalAlignment.Center;
-            columnCantEmpaquetadas.Width = 100;
+            columnCantEmpaquetadas.Width = 95;
             // 
             // l
             // 
             l.AutoSize = true;
-            l.Location = new Point(697, 25);
+            l.Location = new Point(613, 19);
             l.Name = "l";
-            l.Size = new Size(192, 20);
+            l.Size = new Size(150, 15);
             l.TabIndex = 7;
             l.Text = "ORDENES EMPAQUETADAS";
             // 
             // btnIzquierda
             // 
-            btnIzquierda.Location = new Point(629, 212);
-            btnIzquierda.Margin = new Padding(3, 4, 3, 4);
+            btnIzquierda.Location = new Point(544, 158);
             btnIzquierda.Name = "btnIzquierda";
-            btnIzquierda.Size = new Size(62, 33);
+            btnIzquierda.Size = new Size(54, 25);
             btnIzquierda.TabIndex = 8;
             btnIzquierda.Text = "<-";
             btnIzquierda.UseVisualStyleBackColor = true;
@@ -180,9 +174,9 @@
             // 
             // EmpaquetadoForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1027, 413);
+            ClientSize = new Size(867, 280);
             Controls.Add(btnIzquierda);
             Controls.Add(l);
             Controls.Add(listOrdenesEmpaquetadas);
@@ -192,7 +186,6 @@
             Controls.Add(label1);
             Controls.Add(buttonConfirmarEmpaquetado);
             Controls.Add(listOrdenesSeleccion);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "EmpaquetadoForm";
             Text = "Empaquetado";
             Load += EmpaquetadoForm_Load;
