@@ -117,7 +117,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
             {
                 if (listOrdenesEmpaquetadas.Items.Count > 0)
                 {
-                    string mensajeConfirmacion = "¿Estás seguro de enviar a despacho las siguientes mercaderías?\n\n";
+                    string mensajeConfirmacion = "¿Está seguro de enviar a despacho las siguientes mercaderías?\n\n";
                     foreach (ListViewItem item in listOrdenesEmpaquetadas.Items)
                     {
                         mensajeConfirmacion += $"Descripción: {item.Text}, Cantidad: {item.SubItems[1].Text}\n";
@@ -140,7 +140,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
                         if (string.IsNullOrEmpty(error))
                         {
                             listOrdenesEmpaquetadas.Items.Clear();
-                            MessageBox.Show("Ordenes listas para despacho.");
+                            MessageBox.Show("Orden de entrega lista para despachar.");
 
                             // Eliminar el primer elemento de la lista listOrdenesSeleccion
                             if (listOrdenesSeleccion.Items.Count > 0)
@@ -176,7 +176,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
             }
             else
             {
-                MessageBox.Show("No se puede generar la orden mientras haya detalles de orden pendientes en listDetalleOrdenes.");
+                MessageBox.Show("No se puede generar la orden de entrega mientras haya mercaderías pendientes de empaquetar.");
             }
         }
 
@@ -232,7 +232,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione un detalle de mercadería para empaquetar.");
+                MessageBox.Show("Por favor, seleccione una mercadería para empaquetar.");
             }
         }
 
@@ -263,7 +263,7 @@ namespace GrupoD.Prototipos.TP3.Empaquetado
             }
             else
             {
-                MessageBox.Show("Por favor, seleccione un elemento de las órdenes empaquetadas para devolver.");
+                MessageBox.Show("Por favor, seleccione un elemento para devolver.");
             }
         }
     }
